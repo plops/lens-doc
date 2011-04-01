@@ -1,0 +1,50 @@
+#+OPTIONS: LaTeX:t      
+#+OPTIONS: LaTeX:dvipng 
+* Aberration due to water
+** Refraction on thin lens
+   [[./thin-lens.jpg]]
+
+   \vec r'=\hat i- \frac{\cos\phi}f \vec\rho
+
+   \vec r=\frac{f}\cos\phi \hat i -\vec\rho
+** Refraction through oil objective
+   [[./objective.jpg]]
+
+   \vec a = f (n-1) \hat z
+
+   R = nf
+
+   this is an approximation for small angles:
+   \vec s = (R - \sqrt{R^2-\rho^2})\hat i
+
+   \vec r_o = \vec r + \vec a - \vec s
+** Refraction at plane surface
+   [[./slab.jpg]]
+
+   k_0=2\pi/\lambda
+
+   k_1=n_1 k_0
+   
+   k_2=n_2 k_0
+   
+   the normal \vec n is directed away from \vec k_1
+
+   \vec k_1_n=(\vec k_1 \vec n)\vec n
+
+   \vec k_1_t=\vec k_1 - \vec k_1_n
+
+   the transversal component of the wavevector is maintained
+
+   \vec k_2_t=\vec k_1_t
+
+   k_2^2 = k_2_n^2 + k_2_t^2
+
+*** Result in terms of wavevector
+ 
+   q = 1-\vec k_1 \vec n
+   
+   \eta = n_2/n_1
+
+   \vec k_2 = q \vec k_1 + \sqrt{q^2-\eta^2} k_1 \vec n 
+
+*** 
