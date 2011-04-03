@@ -101,44 +101,13 @@ divide by $k_2$ with $\k_2/k_2=\t$ and $\k_1/k_2=n_1/n_2\i=\eta\i$:
    \caption{Refraction at an interface transforms the incoming wave
      vector $\k_1$ into the outgoing wave vector $\k_2$.}
  \end{figure}
-
-\subsubsection{Result in terms of wave vector}
-\begin{align}
-  q &= 1-\k_1 \n\\
-  \eta &= n_2/n_1\\
-  \k_2 &= q \k_1 + \sqrt{q^2-\eta^2} k_1\n
-\end{align}
-\subsubsection{Normalized results}
-Its more useful to express all directions with unit vectors
-(cg-principles.djvu foley addison-wesley 1990). See the figure.  It
-also contains the case of total internal reflection.  Confusing: in
-the book the incident vector doesn't point in the direction the
-photons fly!
-
- \begin{figure}
-   \centering
-   %\def\svgwidth{\columnwidth} % sets the image width, this is optional
-   \input{refl2.pdf_tex}
-   \caption{Refraction at an interface transforms the input direction
-     $\i$ into the outgoing $\t$.}
- \end{figure}
+ When the radical in the square root is negative a reflection occurs
+ instead. The tangential component stays and normal component inverts
+ the sign:
  \begin{align}
-   \eta&=\frac{n_1}{n_2}=\frac{\sin\theta_t}{\sin\theta_i}
- \end{align}
- The vector $\m$ has unit length and is perpendicular to $\n$:
- \begin{align}
-   \m&=\frac{\n\cos\theta_i - \i}{\sin\theta_i}
- \end{align}
- \begin{align}
-   \t&=\eta(\cos\theta_i\n-\i)-\cos\theta_t\n\\
-   &=(\eta\cos\theta_i-\cos\theta_t)\n-\eta\i\\
-   \cos\theta_i&=\n\i\\
-   \sin\theta_i&=\sqrt{1-\cos^2\theta_i}\\
-   \cos\theta_t&=\sqrt{1-\sin^2\theta_t}\\
-   &=\sqrt{1-\eta^2\sin^2\theta_i}
- \end{align}
- In case the radical in the square root is negative we have internal reflection:
- \begin{align}
-   \t&=2(\n\i)\n-\i
+   \k_2&=\k_{1t}-\k_{1n}\\
+   &=\k_1 - 2\k_{1n}\\
+   &=\k_1-2(\k_1\n)\n\\
+   \t&=\i-2(\i\n)\n
  \end{align}
 \end{document}
