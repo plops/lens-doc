@@ -64,7 +64,7 @@ this is an approximation for small angles:
   k_1&=n_1 k_0\\
   k_2&=n_2 k_0
 \end{align}
-The normal $\n$ is directed in the opposite direction of the incoming
+The normal $\n$ is directed in the opposite direction of the incident
 wave vector $\k_1$, as you would define it for a mirror. We define the
 transversal and normal component vectors.
 \begin{align}
@@ -89,7 +89,10 @@ Find the length of the normal component of the outgoing wave vector $\k_2$:
   \k_2&=\k_{1t}-\sqrt{k_2^2-k_1^2+(\k_1\n)^2}\n\\
   &=\k_1-(\k_1\n)\n-\sqrt{k_2^2-k_1^2+(\k_1\n)^2}\n
 \end{align}
-divide by $k_2$ with $\k_2/k_2=\t$ and $\k_1/k_2=n_1/n_2\i=\eta\i$:
+Divide by $k_2$ with $\k_2/k_2=\t$ and $\k_1/k_2=\eta\i$ in order to
+introduce unit direction vectors $\i$ and $\t$ for incident and
+outgoing light. The relative index change across the interface is
+$\eta=n_1/n_2$.
 \begin{align}
   \t&=\eta\i-\eta(\i\n)\n-\sqrt{1-\eta^2+\eta^2(\i\n)^2}\n\\
   &=\eta\i-\left(\eta\i\n+\sqrt{1-\eta^2(1-(\i\n)^2)}\right)\n
@@ -98,7 +101,7 @@ divide by $k_2$ with $\k_2/k_2=\t$ and $\k_1/k_2=n_1/n_2\i=\eta\i$:
    \centering
    %\def\svgwidth{\columnwidth} % sets the image width, this is optional
    \input{refraction.pdf_tex}
-   \caption{Refraction at an interface transforms the incoming wave
+   \caption{Refraction at an interface transforms the incident wave
      vector $\k_1$ into the outgoing wave vector $\k_2$.}
  \end{figure}
  When the radical in the square root is negative a reflection occurs
