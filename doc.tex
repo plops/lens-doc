@@ -9,6 +9,7 @@
 \usepackage{wrapfig}
 \usepackage{soul}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{color}
 
@@ -23,27 +24,66 @@
 \setcounter{tocdepth}{3}
 \tableofcontents
 \vspace*{1cm}
+
+\newcommand{\vect}[1]{\mathbf{#1}}
+\renewcommand{\r}{\vect r}
+\renewcommand{\a}{\vect a}
+\newcommand{\s}{\vect s}
+\renewcommand{\k}{\vect k}
+
+\newcommand{\nvect}[1]{\vect{\hat{#1}}}
+\renewcommand{\i}{\nvect i}
+\newcommand{\n}{\nvect n}
+\newcommand{\vrho}{\vect\rho}
+\newcommand{\bild}[1]{\includegraphics[width=7cm]{#1}}
 \section{Aberration due to water}
-\label{sec-1}
-
 \subsection{Refraction on thin lens}
-\label{sec-1.1}
+\bild{thin-lens.jpg}
+
+\begin{align}
+  \r'&=\i- \frac{\cos\phi}{f} \vrho
+%  \r&=\frac{f}{\cos\phi} \hat i -\vrho 
+\end{align}
 \subsection{Refraction through oil objective}
-\label{sec-1.2}
-
+\bild{objective.jpg}
+\begin{align}
+  \a &= f (n-1) \hat z \\
+  R &= nf
+\end{align}
+this is an approximation for small angles: 
+\begin{align}
+  %\s &= (R - \sqrt{R^2-\rho^2})\i\\
+  \r_0 &= \r + \a - \s
+\end{align}
 \subsection{Refraction at plane surface}
-\label{sec-1.3}
+\bild{slab.jpg}
+\begin{align}
+  k_0&=2\pi/\lambda\\
+  k_1&=n_1 k_0\\
+  k_2&=n_2 k_0
+\end{align}
+The normal $\vect{n}$ is directed in the opposite direction of the incoming
+wave vector $\k_1$, as you would define it for a mirror. We define the
+transversal and normal component vectors (they are perpendicular). FIXME the formulas below and the image don't reflect this. Look at the figure from ``Nomalized results'' instead.
+\begin{align}
+  \k_{1n}&=(\k_1\n)\n\\ 
+  \k_{1t}&=\k_1 - \k_{1n}
+\end{align}
+the transversal component of the wave vector is maintained:
+\begin{align}
+  \k_{2t}&=\k_{1t}\\
+  k_2^2&=k_{2n}^2 + k_{2t}^2
+\end{align}
 
-   \includegraphics[width=10em]{./slab.jpg}
-
-   
-\subsubsection{Result in terms of wavevector}
-\label{sec-1.3.1}
-
- 
-
-\subsubsection{}
-cg-principles.djvu foley addison-wesley 1990
+\subsubsection{Result in terms of wave vector}
+\begin{align}
+  q &= 1-\k_1 \n \eta = n_2/n_1\\
+  \k_2 &= q \k_1 + \sqrt{q^2-\eta^2} k_1\n
+\end{align}
+\subsubsection{Normalized results}
+Its more useful to express all directions with unit vectors
+(cg-principles.djvu foley addison-wesley 1990). See the figure.
+It also contains the case of total internal reflection.
  \begin{figure} 
    \centering
    %\def\svgwidth{\columnwidth} % sets the image width, this is optional
