@@ -33,28 +33,37 @@
 
 \newcommand{\nvect}[1]{\vect{\hat{#1}}}
 \renewcommand{\i}{\nvect i}
-\newcommand{\n}{\nvect n}
-\renewcommand{\t}{\nvect t}
-\newcommand{\m}{\nvect m}
-\newcommand{\vrho}{\vect\rho}
+\newcommand{\z}{\nvect z}
+\def\n{\nvect n}
+\def\t{\nvect t}
+\def\m{\nvect m}
+\def\vrho{\boldsymbol\rho}
+\def\abs#1{\mathopen| #1 \mathclose|}
 \newcommand{\bild}[1]{\includegraphics[width=7cm]{#1}}
 \section{Aberration due to water}
 \subsection{Refraction on thin lens}
 \bild{thin-lens.jpg}
 
+We define the intersection of the incident ray
+with the XY-plane of the lens as $\r^{(2)}$.
 \begin{align}
-  \r'&=\i- \frac{\cos\phi}{f} \vrho
-%  \r&=\frac{f}{\cos\phi} \hat i -\vrho 
+  \r^{(2)}&=(x_0,y_0)^T\\
+  \vrho&=\abs{\r^{(2)}}\\
+  \phi&=\arctan(y_0/x_0)\\
+  \cos\theta&=\i\z\\
+  \r'&=\i- \frac{\cos\theta}{f}\vrho\\
+  \r&=\frac{f}{\cos\theta} \i -\vrho 
 \end{align}
 \subsection{Refraction through oil objective}
 \bild{objective.jpg}
 \begin{align}
-  \a &= f (n-1) \hat z \\
+  \a &= f (n-1) \z \\
   R &= nf
 \end{align}
-this is an approximation for small angles: 
+We express the deviation from the principal plane and gaussian sphere
+with an approximation for small angles:
 \begin{align}
-  %\s &= (R - \sqrt{R^2-\rho^2})\i\\
+  \s &= (R - \sqrt{R^2-\rho^2})\i\\
   \r_0 &= \r + \a - \s
 \end{align}
 \subsection{Refraction at plane surface}
