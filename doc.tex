@@ -1,8 +1,8 @@
 % first i tried to use org mode, but that doesn't have sufficient
 % support for formulas and images
-\documentclass[11pt]{article}
+\documentclass[twocolumn,DIV19]{scrartcl}
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{longtable}
 \usepackage{float}
@@ -64,11 +64,11 @@ this is an approximation for small angles:
   k_1&=n_1 k_0\\
   k_2&=n_2 k_0
 \end{align}
-The normal $\vect{n}$ is directed in the opposite direction of the incoming
+The normal $\n$ is directed in the opposite direction of the incoming
 wave vector $\k_1$, as you would define it for a mirror. We define the
-transversal and normal component vectors (they are perpendicular). FIXME the formulas below and the image don't reflect this. Look at the figure from ``Nomalized results'' instead.
+transversal and normal component vectors (they are perpendicular). FIXME the formulas below and the image don't reflect this. Look at the figure from ``Nomalized results'' instead. (My approach is better than the foley book, i don't use cosine. I should fix mine)
 \begin{align}
-  \k_{1n}&=(\k_1\n)\n\\ 
+  \k_{1n}&=-(\k_1\n)\n\\ 
   \k_{1t}&=\k_1 - \k_{1n}
 \end{align}
 the transversal component of the wave vector is maintained:
@@ -76,6 +76,14 @@ the transversal component of the wave vector is maintained:
   \k_{2t}&=\k_{1t}\\
   k_2^2&=k_{2n}^2 + k_{2t}^2
 \end{align}
+
+ \begin{figure}
+   \centering
+   %\def\svgwidth{\columnwidth} % sets the image width, this is optional
+   \input{refraction.pdf_tex}
+   \caption{Refraction at an interface transforms the incoming wave
+     vector $\k_1$ into the outgoing wave vector $\k_2$.}
+ \end{figure}
 
 \subsubsection{Result in terms of wave vector}
 \begin{align}
