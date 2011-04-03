@@ -34,6 +34,8 @@
 \newcommand{\nvect}[1]{\vect{\hat{#1}}}
 \renewcommand{\i}{\nvect i}
 \newcommand{\n}{\nvect n}
+\renewcommand{\t}{\nvect t}
+\newcommand{\m}{\nvect m}
 \newcommand{\vrho}{\vect\rho}
 \newcommand{\bild}[1]{\includegraphics[width=7cm]{#1}}
 \section{Aberration due to water}
@@ -77,17 +79,38 @@ the transversal component of the wave vector is maintained:
 
 \subsubsection{Result in terms of wave vector}
 \begin{align}
-  q &= 1-\k_1 \n \eta = n_2/n_1\\
+  q &= 1-\k_1 \n\\
+  \eta &= n_2/n_1\\
   \k_2 &= q \k_1 + \sqrt{q^2-\eta^2} k_1\n
 \end{align}
 \subsubsection{Normalized results}
 Its more useful to express all directions with unit vectors
 (cg-principles.djvu foley addison-wesley 1990). See the figure.
 It also contains the case of total internal reflection.
- \begin{figure} 
+ \begin{figure}
    \centering
    %\def\svgwidth{\columnwidth} % sets the image width, this is optional
    \input{refl2.pdf_tex}
+   \caption{Refraction at an interface transforms the input direction
+     $\i$ into the outgoing $\t$.}
  \end{figure}
-
+ \begin{align}
+   \eta&=\frac{n_1}{n_2}=\frac{\sin\theta_t}{\sin\theta_i}
+ \end{align}
+ The vector $\m$ has unit length and is perpendicular to $\n$:
+ \begin{align}
+   \m&=\frac{\n\cos\theta_i - \i}{\sin\theta_i}
+ \end{align}
+ \begin{align}
+   \t&=\eta(\cos\theta_i\n-\i)-\cos\theta_t\n\\
+   &=(\eta\cos\theta_i-\cos\theta_t)\n-\eta\i\\
+   \cos\theta_i&=\n\i\\
+   \sin\theta_i&=\sqrt{1-\cos^2\theta_i}\\
+   \cos\theta_t&=\sqrt{1-\sin^2\theta_t}\\
+   &=\sqrt{1-\eta^2\sin^2\theta_i}
+ \end{align}
+ In case the radical in the square root is negative we have internal reflection:
+ \begin{align}
+   \t&=2(\n\i)\n-\i
+ \end{align}
 \end{document}

@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="258.66141"
-   height="251.5748"
+   width="167.33775"
+   height="127.62048"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.1 r9760"
-   sodipodi:docname="refl2.pdf">
+   sodipodi:docname="refl2.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,18 +24,22 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="69.635419"
-     inkscape:cy="55.543227"
+     inkscape:zoom="4"
+     inkscape:cx="99.038338"
+     inkscape:cy="48.754711"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="mm"
-     inkscape:window-width="1337"
-     inkscape:window-height="721"
-     inkscape:window-x="173"
-     inkscape:window-y="64"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="1364"
+     inkscape:window-height="751"
+     inkscape:window-x="0"
+     inkscape:window-y="15"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="1.5"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -52,7 +56,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-800.78741)">
+     transform="translate(-15.15625,-799.31702)">
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 15.167262,870.00507 148.492428,0"
@@ -65,24 +69,22 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 39.915999,826.87156 42.779961,42.77996 13.580531,50.68323"
+       d="m 39.915999,826.87156 42.779961,42.77996 22.08053,47.68323"
        id="path3033"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 66.432504,851.97385 4.596194,5.3033"
-       id="path3035"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 64.311183,853.74161 5.656854,3.53554"
+       d="m 70.311183,859.67911 9.203427,6.76777 -6.796573,-9.10723"
        id="path3037"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 90.827688,911.01726 5.3033,8.13173 0.353554,-9.89949"
+       d="m 99.265188,910.70476 5.865802,7.06923 -2.27145,-9.08699"
        id="path3039"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
@@ -93,19 +95,19 @@
          sodipodi:role="line"
          id="tspan3043"
          x="49.815495"
-         y="822.98248">I</tspan></text>
+         y="822.98248">$\i$</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="100.37363"
-       y="914.19922"
+       x="110.37363"
+       y="916.69922"
        id="text3045"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3047"
-         x="100.37363"
-         y="914.19922"
-         style="font-size:10px">$T=M\sin\theta_t-N\cos\theta_t$</tspan></text>
+         x="110.37363"
+         y="916.69922"
+         style="font-size:6px">$\t=\m\sin\theta_t-\n\cos\theta_t$</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
@@ -116,29 +118,29 @@
          sodipodi:role="line"
          id="tspan3051"
          x="79.867531"
-         y="810.25452">N</tspan></text>
+         y="810.25452">$\n$</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="143.86069"
-       y="862.58044"
+       x="145.36945"
+       y="861.16626"
        id="text3053"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3055"
-         x="143.86069"
-         y="862.58044">$n_1$</tspan></text>
+         x="145.36945"
+         y="861.16626">$n_1$</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="142.44649"
-       y="886.97565"
+       x="145.36945"
+       y="885.56146"
        id="text3057"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3059"
-         x="142.44649"
-         y="886.97565">$n_2$</tspan></text>
+         x="145.36945"
+         y="885.56146">$n_2$</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
@@ -162,7 +164,7 @@
          sodipodi:role="line"
          id="tspan3124"
          x="68.942909"
-         y="53.697491"></tspan></text>
+         y="53.697491" /></text>
     <text
        xml:space="preserve"
        style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
@@ -177,106 +179,158 @@
     <text
        xml:space="preserve"
        style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="83.549507"
+       x="85.195953"
        y="906.34998"
        id="text3130"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3132"
-         x="83.549507"
+         x="85.195953"
          y="906.34998">$\theta_t$</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 81.3125,27.199798 1.6875,-9.75 1.875,9.9375"
+       id="path4140"
+       inkscape:connector-curvature="0"
+       transform="translate(0,800.78741)"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 104.60954,67.99864 c 7.65318,2.656854 7.65318,2.594354 7.65318,2.594354 l -7.75305,1.926461"
+       id="path4142"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc"
+       transform="translate(15.15625,799.31702)" />
     <text
        xml:space="preserve"
        style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="11.868164"
-       y="944.90637"
-       id="text3134"
+       x="113.56483"
+       y="882.8916"
+       id="text4144"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan3136"
-         x="11.868164"
-         y="944.90637">$\eta=n_1/n_2=\sin\theta_t/\sin\theta_i$</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="11.868164"
-       y="966.50482"
-       id="text3138"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         x="11.868164"
-         y="966.50482"
-         id="tspan3146">$M$ is unit vector and perpendicular to $N$: $M=(N\cos(\theta_i)-I)/\sin\theta_i$ </tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="11.868164"
-       y="988.81128"
-       id="text3148"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3150"
-         x="11.868164"
-         y="988.81128">$T=\eta (N\cos(\theta_i)-I)-N\cos\theta_t$</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="11.868164"
-       y="1010.7637"
-       id="text3152"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3154"
-         x="11.868164"
-         y="1010.7637">$T=(\eta\cos\theta_i-\cos\theta_t)N-\eta I$</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="11"
-       y="1047.3622"
-       id="text3156"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         x="11"
-         y="1047.3622"
-         id="tspan3160"><tspan
-   style="fill:#ff0000"
-   id="tspan3212">$\cos\theta_t</tspan>=\sqrt{1-\sin^2\theta_t}=<tspan
-   style="fill:#ff0000"
-   id="tspan3214">\sqrt{1-\eta^2\sin^2\theta_i}</tspan>=\sqrt{1-\eta^2(1-(NI)^2)}$</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="12.5"
-       y="1024.8622"
-       id="text3166"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3168"
-         x="12.5"
-         y="1024.8622">$\cos\theta_i=NI$</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="99"
-       y="1024.8622"
-       id="text3170"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3172"
-         x="99"
-         y="1024.8622">$\sin\theta_i=\sqrt{1-\cos^2\theta_i}$</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="15.5"
-       y="271.5748"
-       id="text3216"
-       sodipodi:linespacing="125%"
-       transform="translate(0,800.78741)"><tspan
-         sodipodi:role="line"
-         id="tspan3218"
-         x="15.5"
-         y="271.5748">$T=2(NI)N-I$ if total internal reflection</tspan></text>
+         id="tspan4146"
+         x="113.56483"
+         y="882.8916">$\m$</tspan></text>
+    <g
+       transform="translate(-15.379572,31.156887)"
+       id="g4231-3">
+      <path
+         transform="translate(15.15625,799.31702)"
+         inkscape:connector-curvature="0"
+         id="path4186-6"
+         d="M 31.819805,81.128212 30.405592,84.48697"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4186-8-1"
+         d="m 48.036714,881.24074 -1.414213,3.35875"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(-21.566757,3.4029457)"
+       id="g4231-0">
+      <path
+         transform="translate(15.15625,799.31702)"
+         inkscape:connector-curvature="0"
+         id="path4186-63"
+         d="M 31.819805,81.128212 30.405592,84.48697"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4186-8-2"
+         d="m 48.036714,881.24074 -1.414213,3.35875"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(19.445437,29.91945)"
+       id="g4231-06">
+      <path
+         transform="translate(15.15625,799.31702)"
+         inkscape:connector-curvature="0"
+         id="path4186-1"
+         d="M 31.819805,81.128212 30.405592,84.48697"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4186-8-5"
+         d="m 48.036714,881.24074 -1.414213,3.35875"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(22.804194,2.3422855)"
+       id="g4231-5">
+      <path
+         transform="translate(15.15625,799.31702)"
+         inkscape:connector-curvature="0"
+         id="path4186-4"
+         d="M 31.819805,81.128212 30.405592,84.48697"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4186-8-7"
+         d="m 48.036714,881.24074 -1.414213,3.35875"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(48.613591,-2.9610154)"
+       id="g4231-6">
+      <path
+         transform="translate(15.15625,799.31702)"
+         inkscape:connector-curvature="0"
+         id="path4186-56"
+         d="M 31.819805,81.128212 30.405592,84.48697"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4186-8-9"
+         d="m 48.036714,881.24074 -1.414213,3.35875"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(66.291261,17.014751)"
+       id="g4231-37">
+      <path
+         transform="translate(15.15625,799.31702)"
+         inkscape:connector-curvature="0"
+         id="path4186-45"
+         d="M 31.819805,81.128212 30.405592,84.48697"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4186-8-25"
+         d="m 48.036714,881.24074 -1.414213,3.35875"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(103.06081,13.125663)"
+       id="g4231-07">
+      <path
+         transform="translate(15.15625,799.31702)"
+         inkscape:connector-curvature="0"
+         id="path4186-86"
+         d="M 31.819805,81.128212 30.405592,84.48697"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4186-8-8"
+         d="m 48.036714,881.24074 -1.414213,3.35875"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(44.724505,32.747877)"
+       id="g4231-9">
+      <path
+         transform="translate(15.15625,799.31702)"
+         inkscape:connector-curvature="0"
+         id="path4186-2"
+         d="M 31.819805,81.128212 30.405592,84.48697"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4186-8-06"
+         d="m 48.036714,881.24074 -1.414213,3.35875"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
   </g>
 </svg>
