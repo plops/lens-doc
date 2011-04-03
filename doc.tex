@@ -66,17 +66,35 @@ this is an approximation for small angles:
 \end{align}
 The normal $\n$ is directed in the opposite direction of the incoming
 wave vector $\k_1$, as you would define it for a mirror. We define the
-transversal and normal component vectors (they are perpendicular). FIXME the formulas below and the image don't reflect this. Look at the figure from ``Nomalized results'' instead. (My approach is better than the foley book, i don't use cosine. I should fix mine)
+transversal and normal component vectors.
 \begin{align}
   \k_{1n}&=-(\k_1\n)\n\\ 
   \k_{1t}&=\k_1 - \k_{1n}
 \end{align}
-the transversal component of the wave vector is maintained:
+During refraction the transversal component of the wave vector doesn't
+change furthermore the normal and transversal component are
+perpendicular.
 \begin{align}
   \k_{2t}&=\k_{1t}\\
   k_2^2&=k_{2n}^2 + k_{2t}^2
 \end{align}
-
+Find the length of the normal component of the outgoing wave vector $\k_2$:
+\begin{align}
+  k_2^2&=k_{2n}^2 + (\k_1 - \k_{1n})^2\\
+  k_{2n}^2&=k_2^2-(\k_1+(\k_1\n)\n)^2\\
+  &= k_2^2-(k_1^2+2(\k_1\n)^2+(\k_1\n)^2)\\
+  &= k_2^2-k_1^2-3(\k_1\n)^2
+\end{align}
+\begin{align}
+  \k_2&=\k_{1t}-\sqrt{k_2^2-k_1^2-3(\k_1\n)^2}\n\\
+  &=\k_1+(\k_1\n)\n-\sqrt{k_2^2-k_1^2-3(\k_1\n)^2}\n
+\end{align}
+divide by $k_2$ with $\k_2/k_2=\t$ and $\k_1/k_2=n_1/n_2\i=\eta\i$:
+\begin{align}
+  \t&=\eta\i+\eta(\i\n)\n-\sqrt{1-\eta^2-3\eta^2(\i\n)^2}\n\\
+  &=\eta\i+\left(\eta\i\n-\sqrt{1-\eta^2(1+3(\i\n)^2)}\right)\n\\
+  &=\eta\left(\i+\left(\i\n-\sqrt{\frac{1}{\eta^2}-(1+3(\i\n)^2)}\right)\n\right)
+\end{align}
  \begin{figure}
    \centering
    %\def\svgwidth{\columnwidth} % sets the image width, this is optional
