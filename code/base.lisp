@@ -100,7 +100,7 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 	  (setf (aref r i) (/ (aref r i) (aref e i)))))
       r)))
 #+nil
-(./ (vec 1 2 3) (vec 3 32 2) (vec 32 4 2))
+(.+ (vec 1 2 3) (vec 3 32 2) (vec 32 4 2))
 
 (defun dot (a b)
   (declare (type vec a b))
@@ -136,25 +136,24 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
   (let ((b (copy-vec v)))
     (the vec (.s (/ (norm v)) b))))
 
-(declaim (ftype (function (vec vec) (values vec &optional)) cross))
 (defun cross (a b)
-  (let ((r (v)))
-    (with-arrays (r a b)
-      (setf (r 2) (- (* (a 1) (b 0))
-		     (* (a 0) (b 1)))
-	    (r 1) (- (* (a 0) (b 2))
-		     (* (a 2) (b 0)))
-	    (r 0) (- (* (a 2) (b 1))
-		     (* (a 1) (b 2)))))
-    r))
+  (declare (type vec a b))
+  (the vec
+    (v (- (* (vy a) (vz b))
+	  (* (vz a) (vy b)))
+       (- (* (vz a) (vx b))
+	  (* (vx a) (vz b)))
+       (- (* (vx a) (vy b))
+	  (* (vy a) (vx b))))))
+
 #+nil
-(cross (v 0 0 1) (v 0 1 0))
+(cross (v 1 0 0) (v 0 1 0))
 
 
 (declaim (inline vx vy vz))
 (defun vx (v)
   (declare (type vec v))
-  (the num (aref v 2)))
+  (the num (aref v 0)))
 
 (defun vy (v)
   (declare (type vec v))
@@ -162,7 +161,7 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 
 (defun vz (v)
   (declare (type vec v))
-  (the num (aref v 0)))
+  (the num (aref v 2)))
 
 (defun v-spherical (theta phi)
   "Convert spherical coordinates into cartesian."
@@ -170,9 +169,9 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 	   (type (single-float #.(coerce (- pi) 'num) #.(coerce pi 'num)) phi))
   (let* ((st (sin theta)))
     (the vec
-      (v (cos theta)
+      (v (* st (cos phi))
 	 (* st (sin phi))
-	 (* st (cos phi))))))
+	 (cos theta)))))
 
 
 ;; (defun check-unit-vector (&rest rest)
@@ -198,23 +197,12 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 (defun req (&optional name)
   (error "Required argument ~@[~S~] missing" name))
 
-
 (defun m (a b c d e f g h i)
   (declare (type num a b c d e f g h i))
-  (let ((m (make-array '(3 3)
-		       :element-type 'num)))
-    (macrolet ((o (j i)
-		 `(aref m ,j ,i))) ;; note: rows are reversed
-      (setf (o 0 0) a
-	    (o 0 1) b
-	    (o 0 2) c
-	    (o 1 0) d
-	    (o 1 1) e
-	    (o 1 2) f
-	    (o 2 0) g
-	    (o 2 1) h
-	    (o 2 2) i))
-    (the mat m)))
+  (the mat
+    (make-array '(3 3)
+		:element-type 'num
+		:initial-contents (list (list a b c) (list d e f) (list g h i)))))
 
 (defun rotation-matrix (angle vect)
   "Create matrix that rotates by ANGLE radians around the direction
@@ -246,17 +234,43 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 #+nil
 (rotation-matrix (/ +pi+ 2) (v 0 0 1))
 
+(defun determinant (m)
+  (declare (type mat m))
+  (with-arrays (m)
+   (let ((a (m 0 0))
+	 (b (m 0 1))
+	 (c (m 0 2))
+	 (d (m 1 0))
+	 (e (m 1 1))
+	 (f (m 1 2))
+	 (g (m 2 0))
+	 (h (m 2 1))
+	 (i (m 2 2)))
+     (the num
+       (+ (* a (- (* e i) (* f h)))
+	  (* b (- (* f g) (* d i)))
+	  (* c (- (* d h) (* e g))))))))
+
+(defun transpose (a)
+  (declare (type mat a))
+  (let ((res (m 0 0 0 0 0 0 0 0 0)))
+    (loop for i below 3 do
+          (loop for j below 3 do
+                (setf (aref res i j)
+                      (aref a j i))))
+    (the mat res)))
+
 (defun m* (matrix vect)
   "Multiply MATRIX with VECT."
   (declare (type mat matrix)
-           (type vec vect)
-           (values vec &optional))
+           (type vec vect))
   (let ((res (v)))
     (dotimes (i 3)
-      (dotimes (j 3)
-        (incf (aref res (- 2 i))
-              (* (aref matrix (- 2 j) i) (aref vect j)))))
-    res))
+          (dotimes (j 3)
+	    (incf (aref res i) 
+		  (* (aref matrix i j) (aref vect j)))))
+    (the vec res)))
+
 #+nil
 (let ((n 13))
  (loop for i below n collect

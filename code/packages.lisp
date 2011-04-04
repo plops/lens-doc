@@ -9,6 +9,8 @@
    #:mat
    #:m
    #:rotation-matrix
+   #:determinant
+   #:transpose
    #:m*))
 
 (defpackage :raster
