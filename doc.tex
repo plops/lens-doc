@@ -29,7 +29,8 @@
 \renewcommand{\r}{\vect r}
 \renewcommand{\a}{\vect a}
 \newcommand{\s}{\vect s}
-\renewcommand{\k}{\vect k}
+\def\k{\vect k}
+\def\d{\vect d}
 
 \newcommand{\nvect}[1]{\vect{\hat{#1}}}
 \renewcommand{\i}{\nvect i}
@@ -45,10 +46,9 @@
 \bild{thin-lens.jpg}
 
 We define the intersection of the incident ray
-with the XY-plane of the lens as $\r^{(2)}$.
+with the XY-plane of the lens as $\vrho$.
 \begin{align}
-  \r^{(2)}&=(x_0,y_0)^T\\
-  \vrho&=\abs{\r^{(2)}}\\
+  \vrho&=(x_0,y_0,0)^T=\rho e^{i\phi}\\
   \phi&=\arctan(y_0/x_0)\\
   \cos\theta&=\i\z\\
   \r'&=\i- \frac{\cos\theta}{f}\vrho\\
@@ -122,4 +122,43 @@ $\eta=n_1/n_2$.
    &=\k_1-2(\k_1\n)\n\\
    \t&=\i-2(\i\n)\n
  \end{align}
+\section{Tracing from sample space into object space}
+\subsection{Unaberrated objective}
+A unit ray direction $\i=(x,y,z)^T$ in sample space is transformed
+into a position $\r_b=(x',y')^T$ in the back focal plane of the
+objective. This result was first produced in D6.8a.  The azimuthal
+angle $\phi$ isn't changed when going through the objective. The angle
+$\theta$ defines how far off axis the back focal plane is hit.
+\begin{align}
+  \phi'&=\phi=\arctan(y/x)\\
+  \theta&=\arcsin(\sqrt{x'^2+y'^2})\\
+  r_b&=nf\sin\theta\\
+  \r_b&=r_b(\cos\phi',\sin\phi')^T
+\end{align}
+ \begin{figure}[!hbt]
+   \centering
+   %\def\svgwidth{\columnwidth} % sets the image width, this is optional
+   \input{obj-rev.pdf_tex}
+   \caption{Schematic for tracing a ray direction $\i$ from sample
+     space into the back focal plane. The bigger the angle between
+     $\i$ and the optical axis, the further outside the ray will pass
+     through the back focal plane.}
+ \end{figure}
+ We are not interested, in what angle the back focal plane is
+ hit. Therefore we don't have to consider the object position.
+\subsection{Aberrated objective}
+We can use the formulas from above to trace through an embedding
+medium of non-matching refractive index $n_e$. Then the ray direction
+$\i$ is to be taken after the ray was refracted through the interface
+between the embedding medium and the immersion oil. In this case the
+position on the back focal plane will depend on sample position.
+ \begin{figure}[!hbt]
+   \centering
+   %\def\svgwidth{\columnwidth} % sets the image width, this is optional
+   \input{obj-rev-emb.pdf_tex}
+   \caption{Schematic for tracing a ray from inside an embedding
+     medium that has a different refractive index than the immersion
+     oil.}
+ \end{figure}
+
 \end{document}
