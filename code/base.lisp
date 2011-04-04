@@ -210,8 +210,8 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 (defun rotation-matrix (angle vect)
   "Create matrix that rotates by ANGLE radians around the direction
  VECT. VECT must be normalized."
-  (declare ((single-float 0s0 #.+2*pi+) angle)
-           (vec vect))
+  (declare (type num #+nil(single-float 0s0 #.+2*pi+) angle)
+           (type vec vect))
   (check-unit-vector vect)
   (let* ((u (vx vect))
          (v (vy vect))
@@ -287,6 +287,15 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 	    (incf (aref res i) 
 		  (* (aref matrix i j) (aref vect j)))))
     (the vec res)))
+
+;; rotate e_x around z, result should be -e_y=(0 -1 0)
+
+#+nil
+(chop
+ (m*
+  (rotation-matrix (/ +pi+ 2) (v 0 0 1))
+  (v 1 0 0)))
+
 
 #+nil
 (let ((n 13))
