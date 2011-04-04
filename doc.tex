@@ -13,9 +13,10 @@
 \usepackage{hyperref}
 \usepackage{color}
 
-\title{aberration}
-\author{martin}
-\date{31 March 2011}
+\title{Raytracing through an oil objective and non-matching embedding
+  medium} 
+\author{Martin Kielhorn}
+\date{2011-04-04}
 
 \begin{document}
 
@@ -41,33 +42,8 @@
 \def\vrho{\boldsymbol\rho}
 \def\abs#1{\mathopen| #1 \mathclose|}
 \newcommand{\bild}[1]{\includegraphics[width=7cm]{#1}}
-\section{Aberration due to water}
-\subsection{Refraction on thin lens}
-\bild{thin-lens.jpg}
-
-We define the intersection of the incident ray
-with the XY-plane of the lens as $\vrho$.
-\begin{align}
-  \vrho&=(x_0,y_0,0)^T=\rho e^{i\phi}\\
-  \phi&=\arctan(y_0/x_0)\\
-  \cos\theta&=\i\z\\
-  \r'&=\i- \frac{\cos\theta}{f}\vrho\\
-  \r&=\frac{f}{\cos\theta} \i -\vrho 
-\end{align}
-\subsection{Refraction through oil objective}
-\bild{objective.jpg}
-\begin{align}
-  \a &= f (n-1) \z \\
-  R &= nf
-\end{align}
-We express the deviation from the principal plane and gaussian sphere
-with an approximation for small angles:
-\begin{align}
-  \s &= (R - \sqrt{R^2-\rho^2})\i\\
-  \r_0 &= \r + \a - \s
-\end{align}
+\section{Refraction}
 \subsection{Refraction at plane surface}
-\bild{slab.jpg}
 \begin{align}
   k_0&=2\pi/\lambda\\
   k_1&=n_1 k_0\\
@@ -122,7 +98,32 @@ $\eta=n_1/n_2$.
    &=\k_1-2(\k_1\n)\n\\
    \t&=\i-2(\i\n)\n
  \end{align}
-\section{Tracing from sample space into object space}
+\subsection{Refraction on thin lens}
+\bild{thin-lens.jpg}
+
+(See 2008Hwang)
+We define the intersection of the incident ray
+with the XY-plane of the lens as $\vrho$.
+\begin{align}
+  \vrho&=(x_0,y_0,0)^T=\rho e^{i\phi}\\
+  \phi&=\arctan(y_0/x_0)\\
+  \cos\theta&=\i\z\\
+  \r'&=\i- \frac{\cos\theta}{f}\vrho\\
+   \r&=\frac{f}{\cos\theta} \i -\vrho 
+\end{align}
+\subsection{Refraction through oil objective (from BFP towards FFP)}
+\bild{objective.jpg}
+\begin{align}
+  \a &= f (n-1) \z \\
+  R &= nf
+\end{align}
+We express the deviation from the principal plane and gaussian sphere
+with an approximation for small angles:
+\begin{align}
+  \s &= (R - \sqrt{R^2-\rho^2})\i\\
+  \r_0 &= \r + \a - \s
+\end{align}
+\section{Tracing from sample space into the back focal plane}
 \subsection{Unaberrated objective}
 A unit ray direction $\i=(x,y,z)^T$ in sample space is transformed
 into a position $\r_b=(x',y')^T$ in the back focal plane of the
