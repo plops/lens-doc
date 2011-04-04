@@ -32,10 +32,13 @@
 \newcommand{\s}{\vect s}
 \def\k{\vect k}
 \def\d{\vect d}
+\def\c{\vect c}
 
 \newcommand{\nvect}[1]{\vect{\hat{#1}}}
 \renewcommand{\i}{\nvect i}
 \newcommand{\z}{\nvect z}
+\def\hs{\nvect s}
+\def\hd{\nvect d}
 \def\n{\nvect n}
 \def\t{\nvect t}
 \def\m{\nvect m}
@@ -80,7 +83,7 @@ outgoing light. The relative index change across the interface is
 $\eta=n_1/n_2$.
 \begin{align}
   \t&=\eta\i-\eta(\i\n)\n-\sqrt{1-\eta^2+\eta^2(\i\n)^2}\n\\
-  &=\eta\i-\left(\eta\i\n+\sqrt{1-\eta^2(1-(\i\n)^2)}\right)\n
+  &=\boxed{\eta\i-\left(\eta\i\n+\sqrt{1-\eta^2(1-(\i\n)^2)}\right)\n}
 \end{align}
  \begin{figure}
    \centering
@@ -96,8 +99,31 @@ $\eta=n_1/n_2$.
    \k_2&=\k_{1t}-\k_{1n}\\
    &=\k_1 - 2\k_{1n}\\
    &=\k_1-2(\k_1\n)\n\\
-   \t&=\i-2(\i\n)\n
+   \t&=\boxed{\i-2(\i\n)\n}
  \end{align}
+\subsection{Intersection of a ray and a plane}
+A ray may start at a point $\s$ and may have the direction $\hd$.  A
+plane that contains the point $\c$ and has the normal $\n$ intersects
+with this ray if the normal and ray direction are not perpendicular
+$\n\hd\not=0$. The distance between the plane and the origin is
+$h=\c\n$. We can define the plane equation in Hesse normal form:  
+\begin{align}
+  \r\n=h
+\end{align}
+Now we replace the coordinate $\r$ with the ray equation and solve for
+the parameter $\tau$:
+\begin{align}
+  (\s+\tau\hd)\n&=h\\
+  \s\n+\tau\hd\n&=h\\
+  \tau&=\boxed{\frac{h-\s\n}{\hd\n}}
+\end{align}
+ \begin{figure}[!hbt]
+   \centering
+   %\def\svgwidth{\columnwidth} % sets the image width, this is optional
+   \input{plane-intersection.pdf_tex}
+   \caption{Schematic for describing the plane-ray intersection.}
+ \end{figure}
+
 \subsection{Refraction on thin lens}
 \bild{thin-lens.jpg}
 
