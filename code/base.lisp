@@ -187,6 +187,9 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
     (unless (< (abs (- (norm e) 1)) 1s-6)
       (error "vector isn't normalized"))))
 
+#+nil
+(check-unit-vector (v 1 0 0))
+
 (defun check-range (min max &rest rest)
 #+nil  (declare (type num min max))
   (dolist (e rest)
@@ -231,8 +234,22 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 	 (+ (* 1-c u w) sv)
 	 (- (* 1-c v w) su)
 	 (+ c (* 1-c w w))))))
+
+(defun chop (a)
+  (let* ((r (make-array (array-dimensions a) 
+			:element-type (array-element-type a)))
+	 (a1 (sb-ext:array-storage-vector a))
+	 (r1 (sb-ext:array-storage-vector r)))
+    (dotimes (i (length r1))
+      (when 
+	  (setf (aref r1 i) (if (< (abs (aref a1 i)) 1s-7)
+				0s0
+				(aref a1 i)))))
+    r))
+
 #+nil
-(rotation-matrix (/ +pi+ 2) (v 0 0 1))
+(chop
+ (rotation-matrix (/ +pi+ 2) (v 0 0 1)))
 
 (defun determinant (m)
   (declare (type mat m))
