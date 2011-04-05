@@ -25,4 +25,6 @@
 
 (defpackage :raytrace
   (:use :cl :base)
-  (:export))
+  (:export
+   #:refract-plane
+   #:intersect-plane))
