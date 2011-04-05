@@ -19,6 +19,14 @@
 		  (format nil "(~f,~f,~f)" (vx v) (vy v) (vz v))))
 	   ,@body)))))
 
+(defun calc-e (phi x1 y1 hx hy s)
+  (declare (type num x1 y1 phi)
+	   (type vec hx hy s))
+  (the vec
+   (.+ s 
+       (.s x1 hx)
+       (.s y1 (m* (rotation-matrix phi hx) hy)))))
+
 (let* ((ne 1.33s0)
        (c (v))
        (s (.s ne (v 6 0 7)))
@@ -47,5 +55,7 @@
    (asy "draw((0,0,0)--(0,0,1),blue);")
    ;; green nucleus
    (asy "draw(shift(~a)*scale3(~f)*unitsphere,green);" (coord s) r)
-   ;; line of cone
-   (asy "draw((~a)--(~a));" (coord e) (coord (v)))))
+   ;; lines on surface of cone
+   (let ((n 16))
+    (dotimes (i n)
+      (asy "draw((~a)--(~a));" (coord (calc-e (* (/ +2*PI+ n) i) x1 y1 hx hy s)) (coord (v)))))))

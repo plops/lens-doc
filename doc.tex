@@ -259,12 +259,16 @@ $\phi$ around the axis $\hc$. This we can use to obtain a point $\e$
 on the bill board circle. Then we can find a ray direction $\f$ on the
 cone.
 \begin{align}
-  \e&=\s+x_1\hx+y_1R_\phi^\hc\hy\\
+  \e&=\s+x_1\hx+y_1R_\phi^\hx\hy\\
   \f&=\c-\e
 \end{align}
 Tracing a sufficient number of rays (e.g.\ 16) with direction $\f$ for
 different angles $\phi$ to the back focal plane gives the projection
 of the bill board.
+
+For practical reasons its useful to project vector $\x$ as well. It
+can be used as the center of the (distorted) shape on the back focal
+plane to render it as a fan of triangles.
 \subsection{Test}
 Set the target point $\c=(0,0,0)^T$ and the nucleus center to
 $\s=\unit[(6,0,7)^T]{n_e \mu m}$ with a nucleus radius
