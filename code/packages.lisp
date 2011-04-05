@@ -11,7 +11,8 @@
    #:rotation-matrix
    #:determinant
    #:transpose
-   #:m*))
+   #:m*
+   #:chop))
 
 (defpackage :raster
   (:use :cl :base)

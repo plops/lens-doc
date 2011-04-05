@@ -187,5 +187,25 @@ position on the back focal plane will depend on sample position.
      medium that has a different refractive index than the immersion
      oil.}
  \end{figure}
-
+\section{Nucleus projection}
+\begin{itemize}
+\item project each out of focus nucleus through each in-focus nucleus 
+\item estimate where out of focus nuclei will end up in the BFP
+\item the in focus target nucleus is sampled in several points
+\item such a target point $\c$ and an out of focus nucleus define a
+  double-cone bound by the tangents
+\item we call the center of the out of focus nucleus $\s$
+\item construct the tangents on the out of focus nucleus by intersecting a sphere around $\c$ with radius $R=\abs{\c-\s}$ and the sphere of the out of focus nucleus centered at $\s$ with radius $r$   
+\end{itemize}
+\begin{align}
+  (x-R)^2+y^2&=R^2\\
+  x^2+y^2=r^2
+\end{align}
+ \begin{figure}[!hbt]
+   \centering
+   \input{touch-cone.pdf_tex}
+   \caption{Schematic of how an out of focus nucleus with radius $r$
+     centered at $\s$ and an in focus target point $\c$ define a cone
+     of rays.}
+ \end{figure}
 \end{document}

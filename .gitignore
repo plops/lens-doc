@@ -1,0 +1,8 @@
+*.pdf
+*~
+*.pdf_tex
+*.out
+*.toc
+*.log
+*.aux
+*.fasl
