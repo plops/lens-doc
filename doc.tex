@@ -33,6 +33,7 @@
 \def\k{\vect k}
 \def\d{\vect d}
 \def\e{\vect e}
+\def\f{\vect f}
 \def\c{\vect c}
 \def\x{\vect x}
 \def\y{\vect y}
@@ -225,7 +226,7 @@ system with the origin in the center of the out of focus nucleus:
 \end{align}
 Leading to two solutions:
 \begin{align}
-  x&=\frac{r^2}{2R}\\
+  x_1&=\frac{r^2}{2R}\\
   y_{1/2}&=\pm\frac{r}{2R}\sqrt{4R^2-r^2}
 \end{align}
 The (unnormalized) direction $\x$ of the x-axis of this coordinate
@@ -251,8 +252,11 @@ scalar product equals the square of the length $\abs{\q\x}=\x^2$.
 \item we want to sample this circle
 \end{itemize}
 Let $R_\phi^\hc$ be a rotation matrix that rotates a vector by angle
-$\phi$ around the axis $\hc$.
+$\phi$ around the axis $\hc$. This we can use to obtain a point $\e$
+on the bill board circle. Then we can find a ray direction $\f$ on the
+cone.
 \begin{align}
-  \e&=R_\phi^\hc\hy
+  \e&=\s+x_1\hx+y_1R_\phi^\hc\hy\\
+  \f&=\c-\e
 \end{align}
 \end{document}
