@@ -1,6 +1,9 @@
 % first i tried to use org mode, but that doesn't have sufficient
 % support for formulas and images
-\documentclass[twocolumn,DIV19]{scrartcl}
+\documentclass[DIV19]{scrartcl}
+\usepackage[paper size={90mm, 120mm},left=2mm,right=2mm,top=2mm,bottom=2mm,nohead]{geometry}
+
+
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -13,6 +16,9 @@
 \usepackage{hyperref}
 \usepackage{color}
 \usepackage{units}
+%usepackage[charter]{mathdesign}
+\usepackage{fouriernc}
+
 \title{Raytracing through an oil objective and non-matching embedding
   medium} 
 \author{Martin Kielhorn}

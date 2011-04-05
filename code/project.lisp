@@ -63,8 +63,9 @@ touching cone on a nucleus."
   (asy "draw((0,0,0)--(0,1,0),green);")
   (asy "draw((0,0,0)--(0,0,1),blue);")
   
-  (let ((rays 13))
-    (multiple-value-bind (x1 y1 hx hy s c r) (prepare-out-of-focus (v 0 0 .1) (v 2 0 2)) 
+  (let ((rays 90)
+	(ne 1.3s0))
+    (multiple-value-bind (x1 y1 hx hy s c r) (prepare-out-of-focus (v 0 0 .1) (v 2 0 2) :ne ne) 
       ;; green nucleus
       (asy "draw(shift(~a)*scale3(~f)*unitsphere,green);" (coord s) r)
       ;; lines on surface of cone
@@ -72,7 +73,10 @@ touching cone on a nucleus."
 	(let* ((e (calc-e (* (/ +2*PI+ rays) i) x1 y1 hx hy s))
 	       (f (.- c e))
 	       (hf (normalize f))
-	       (i (intersect-plane e hf (v) (v 0 0 1))))
-	  (asy "draw((~a)--(~a));" 
+	       (normal (v 0 0 1))
+	       (i (intersect-plane e hf (v) normal))
+	       (ht (refract-plane hf normal (/ ne 1.5))))
+	  (asy "draw((~a)--(~a)--(~a));" 
 	       (coord e)
-	       (coord i)))))))
+	       (coord i)
+	       (coord (.+ i (.s 5s0 ht)))))))))
