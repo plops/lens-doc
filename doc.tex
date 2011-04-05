@@ -12,7 +12,7 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{color}
-
+\usepackage{units}
 \title{Raytracing through an oil objective and non-matching embedding
   medium} 
 \author{Martin Kielhorn}
@@ -229,6 +229,9 @@ Leading to two solutions:
   x_1&=\frac{r^2}{2R}\\
   y_{1/2}&=\pm\frac{r}{2R}\sqrt{4R^2-r^2}
 \end{align}
+In the case $R<r$ the out of focus nucleus is intersecting the target,
+obliviating the reason to do the projection in the first place.
+
 The (unnormalized) direction $\x$ of the x-axis of this coordinate
 system is given by the difference vector of the target $\c$ and the
 nucleus center $\s$. The direction $\y$ must be perpendicular to $\x$
@@ -262,4 +265,10 @@ cone.
 Tracing a sufficient number of rays (e.g.\ 16) with direction $\f$ for
 different angles $\phi$ to the back focal plane gives the projection
 of the bill board.
+\subsection{Test}
+Set the target point $\c=(0,0,0)^T$ and the nucleus center to
+$\s=\unit[(6,0,7)^T]{n_e \mu m}$ with a nucleus radius
+$r=\unit[1.2]{n_e \mu m}$. Note that dimensions are multiplied with
+the refractive index $n_e=1.33$ of the embedding medium (water) as for the light
+the medium increases distances.
 \end{document}
