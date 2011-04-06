@@ -32,3 +32,34 @@
 #+nil
 (intersect-plane (v -1 1) (v 1) (v) (v 1))
 
+
+
+
+(defun quadratic-root (a b c)
+  (declare (type num a b c)
+	   (values num num &optional))
+  (let ((eps 1s-7)
+	(det2 (- (* b b) (* 4 a c))))
+    (the num 
+      (if (<= det2 0)
+	  (error "no solution")
+	  (let* ((q (* .5s0 (+ b (* (signum b) (sqrt det2)))))
+		 (aa (abs a))
+		 (aq (abs q)))
+	    (cond ((< aq eps) (values (/ q a) (/ q a)))
+		  ((< aa eps) (values (/ c q) (/ c q)))
+		  (t (values (/ q a) (/ c q)))))))))
+#+nil
+(quadratic-root-dist 1s0 2s0 -3s0)
+
+(defun intersect-sphere (start dir center radius)
+  (declare (type vec start dir center)
+           (type num radius))
+ ; (check-unit-vector dir)
+  (let* ((l (.- center start))
+         (c (- (dot l l) (* radius radius)))
+         (b (* -2s0 (dot l dir))))
+    (the num (multiple-value-bind (a q)
+		 (quadratic-root 1s0 b c)
+	       (declare (ignore q))
+	       a))))
