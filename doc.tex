@@ -1,9 +1,9 @@
 % first i tried to use org mode, but that doesn't have sufficient
 % support for formulas and images
-\documentclass[DIV19]{scrartcl}
-\usepackage[paper size={90mm, 120mm},left=2mm,right=2mm,top=2mm,bottom=2mm,nohead]{geometry}
+%\documentclass[DIV19]{scrartcl}
+%\usepackage[paper size={90mm, 120mm},left=2mm,right=2mm,top=2mm,bottom=2mm,nohead]{geometry}
 
-
+\documentclass[twocolumn,DIV19]{scrartcl}
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -45,6 +45,7 @@
 \def\y{\vect y}
 \def\z{\vect z}
 \def\q{\vect q}
+\def\p{\vect p}
 
 
 \newcommand{\nvect}[1]{\vect{\hat{#1}}}
@@ -165,6 +166,50 @@ with an approximation for small angles:
   \s &= (R - \sqrt{R^2-\rho^2})\i\\
   \r_0 &= \r + \a - \s
 \end{align}
+\subsection{Reverse path through oil objective}
+\begin{itemize}
+\item draw line at center of lens
+\item mark left and right of that line the (non-immersion) focal
+  planes in $f$ distance
+\item on the left draw the gaussian circle of radius $nf$ that touches
+  the center of the lens on the optical axis
+\item draw the real focal plane in distance $nf$ from center of the
+  lens
+\item start ray anywhere on the left side
+\item extend the ray to hit the real front focal plane as well as the
+  gaussian circle
+\item translate the intersection between ray and real front focal
+  plane along optical axis onto the non-immersion focal plane
+\item draw a line from this point on the non-immersion focal plane
+  through the center of the lens
+\item this ray isn't influenced by the lens and defines the angle of
+  the other ray as well
+\end{itemize}
+ \begin{figure}[!hbt]
+   \centering
+   \input{obj-rev-full.pdf_tex}
+   \caption{Construction to find the outgoing ray for a point from the
+     immersed side.}
+ \end{figure}
+\subsubsection{Treatment of aberration}
+\begin{itemize}
+\item given a ray with starting point $\p$ and direction $\i$
+\item find intersection $\f$ of ray with interface and refract to
+  obtain $\i'$
+\item calculate the freespace distance $d$ to the interface
+  $d=(\f-\p)/n_e$
+\item extend backward along $\i'$ by $\n d$, this results in the
+  corrected position $\p'$
+\item apply the method of the previous section to obtain the ray
+  leaving the objective
+\end{itemize}
+ \begin{figure}[!hbt]
+   \centering
+   \input{obj-rev-full-emb.pdf_tex}
+   \caption{Construction that treats the interface between embedding
+     and immersion medium}
+ \end{figure}
+
 \section{Tracing from sample space into the back focal plane}
 \subsection{Unaberrated objective}
 A unit ray direction $\i=(x,y,z)^T$ in sample space is transformed
