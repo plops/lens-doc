@@ -169,11 +169,11 @@ the parameter $\tau$:
 \end{itemize}
 (See 2008Hwang)
 \begin{align}
-  \vrho&=(x_0,y_0,0)^T=\rho e^{i\phi}\\
-  \phi&=\arctan(y_0/x_0)\\
-  \cos\theta&=\i\hz\\
+  \vrho&=(x_0,y_0,0)^T=\rho (\cos\phi,\sin\phi,0)^T\\
+  \phi&=\boxed{\arctan(y_0/x_0)}\\
+  \cos\theta&=\boxed{\i\hz}\\
   \r'&=\i- \frac{\cos\theta}{f}\vrho\\
-   \r&=\frac{f}{\cos\theta} \i -\vrho 
+   \r&=\boxed{\frac{f}{\cos\theta} \i -\vrho}
 \end{align}
 \subsection{Refraction through oil objective (from BFP towards FFP)}
 \bild{objective.jpg}
@@ -184,15 +184,30 @@ the parameter $\tau$:
   \caption{Construction of a ray on a thin lens.}
 \end{figure}
 \begin{align}
-  \a &= f (n-1) \hz \\
-  R &= nf
+  \a &= \boxed{f (n-1) \hz} \\
+  R &= \boxed{nf}
 \end{align}
-We express the deviation from the principal plane and gaussian sphere
-with an approximation for small angles $\theta$:
+\begin{itemize}
+\item take into account immersion medium by shifting focal plane to
+  $nf$
+\item for high NA objectives rays don't originate from a ``plane''
+  principal plane but from the gaussian sphere of radius $nf$
+\item express the deviation from the principal plane and gaussian
+  sphere with an approximation for small angles $\theta$ and $\phi$
 \begin{align}
-  \s &= (R - \sqrt{R^2-\rho^2})\i\\
-  \r_0 &= \r + \a - \s
+  \s &= \boxed{(R - \sqrt{R^2-\rho^2})\i}
 \end{align}
+\item this is an approximation as it only takes into account the
+  perpendicular distance between plane and sphere
+\item 2008whang compares this approximation with an exact raytrace
+  through a real $100\times\,1.41$ objective, focus displacement
+  errors are less than \unit[130]{nm} for a field of $\unit[86.4]{\mu
+    m}$ radius
+\item the final ray exiting the objective has the direction $\r_0$
+\begin{align}
+  \r_0 &= \boxed{\r + \a - \s}
+\end{align}
+\end{itemize}
 \subsection{Reverse path through oil objective}
 \begin{itemize}
 \item draw line at center of lens
