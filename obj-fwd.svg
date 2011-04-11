@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="195.11542"
-   height="99.245132"
+   width="212.59842"
+   height="106.29921"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.1 r9760"
@@ -40,8 +40,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.4911134"
-     inkscape:cx="83.830213"
-     inkscape:cy="59.686223"
+     inkscape:cx="83.830212"
+     inkscape:cy="59.686237"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -71,7 +71,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-9.787567,-847.51405)"
+     transform="translate(-9.787567,-840.45997)"
      style="display:inline">
     <path
        style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -267,13 +267,47 @@
          id="tspan8678"
          x="114.6207"
          y="868.74438">$\s$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="17.414679"
+       y="846.00104"
+       id="text8813"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan8815"
+         x="17.414679"
+         y="846.00104">gaussian sphere</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="135.03278"
+       y="845.59961"
+       id="text8817"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan8819"
+         x="135.03278"
+         y="845.59961">principal plane</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 55.798343,12.970977 36.931278,8.831392"
+       id="path8840"
+       inkscape:connector-curvature="0"
+       transform="translate(9.787567,837.04431)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 134.87945,12.970977 119.2238,18.992381"
+       id="path8842"
+       inkscape:connector-curvature="0"
+       transform="translate(9.787567,837.04431)" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="sketch"
      style="display:none"
-     transform="translate(-9.787567,-7.75028)">
+     transform="translate(-9.787567,-0.69621814)">
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:0.41471559;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -297,7 +331,7 @@
   </g>
   <path
      style="fill:none;stroke:#000000;stroke-width:0.24999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="m 50.153914,79.239603 0,-40.12781"
+     d="m 50.153912,86.293665 0,-40.127811"
      id="path6683"
      inkscape:connector-curvature="0" />
 </svg>
