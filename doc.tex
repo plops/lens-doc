@@ -20,7 +20,7 @@
 \title{Raytracing through an oil objective and non-matching embedding
   medium} 
 \author{Martin Kielhorn}
-\date{2011-04-04}
+\date{2011-04-11}
 
 \begin{document}
 
@@ -176,7 +176,7 @@ the parameter $\tau$:
    \r&=\boxed{\frac{f}{\cos\theta} \i -\vrho}
 \end{align}
 \subsection{Refraction through oil objective (from BFP towards FFP)}
-\bild{objective.jpg}
+%\bild{objective.jpg}
 \begin{figure}[!hbt]
   \centering
   % \def\svgwidth{\columnwidth} % sets the image width, this is optional
@@ -238,10 +238,10 @@ the parameter $\tau$:
 \item given a ray with starting point $\p$ and direction $\i$
 \item find intersection $\f$ of ray with interface and refract to
   obtain $\i'$
-\item calculate the freespace distance $d$ to the interface
-  $d=(\f-\p)/n_e$
-\item extend backward along $\i'$ by $\n d$, this results in the
-  corrected position $\p'$
+\item calculate the duration $t$ a photon would travel from $\p$ to
+  the interface $\f$: $t=(\f-\p)n_ec$
+\item extend path of the photon backward along $\i'$ by $t/(cn)$, this
+  results in the corrected position $\p'$
 \item apply the method of the previous section to obtain the ray
   leaving the objective
 \end{itemize}
