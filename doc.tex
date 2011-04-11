@@ -16,8 +16,6 @@
 \usepackage{hyperref}
 \usepackage{color}
 \usepackage{units}
-%usepackage[charter]{mathdesign}
-\usepackage{fouriernc}
 
 \title{Raytracing through an oil objective and non-matching embedding
   medium} 
@@ -55,6 +53,7 @@
 \def\hd{\nvect d}
 \def\hx{\nvect x}
 \def\hy{\nvect y}
+
 \def\hz{\nvect z}
 \def\n{\nvect n}
 \def\t{\nvect t}
@@ -142,11 +141,33 @@ the parameter $\tau$:
  \end{figure}
 
 \subsection{Refraction on thin lens}
-\bild{thin-lens.jpg}
-
+%\bild{thin-lens.jpg}
+\begin{figure}[!hbt]
+  \centering
+  % \def\svgwidth{\columnwidth} % sets the image width, this is optional
+  \input{lens-fwd.pdf_tex}
+  \caption{Construction of a ray on a thin lens.}
+\end{figure}
+\begin{itemize}
+\item calculate intersection $\vrho$ of incident ray which is defined
+  by its direction $\i$ and some start position
+\item draw a line with direction $\i$ through the center of the lens,
+  its intersection with the focal plane defines where the direction
+  $\r$ of the exiting ray
+\item the length of the hypothenuse $\overline{OF}$ is $f/\cos\theta$
+\item triangle $ABC$ is similar to triangle $FOA$, therefor we can
+  obtain the length $\abs{\overline{BC}}$ 
+  \begin{align}
+    \frac{\abs{\overline{BC}}}{\overline{BA}}&=
+    \frac{\abs{\overline{OA}}}{\overline{OF}}\\
+    \frac{\abs{\overline{BC}}}{1}&=
+    \frac{\rho}{f/cos\theta}
+  \end{align}
+\item the result can be used to calculate the direction $\r'$
+\item using the two similar triangles again, $\r'$ can be scaled to
+  obtain $\r$
+\end{itemize}
 (See 2008Hwang)
-We define the intersection of the incident ray
-with the XY-plane of the lens as $\vrho$.
 \begin{align}
   \vrho&=(x_0,y_0,0)^T=\rho e^{i\phi}\\
   \phi&=\arctan(y_0/x_0)\\
