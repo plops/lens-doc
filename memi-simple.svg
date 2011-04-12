@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.1 r9760"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="memi-simple.svg">
   <defs
      id="defs4">
     <marker
@@ -193,11 +193,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
+     inkscape:zoom="2.8"
      inkscape:cx="219.72884"
-     inkscape:cy="21.916188"
+     inkscape:cy="36.201902"
      inkscape:document-units="px"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer1"
      showgrid="false"
      units="mm"
      fit-margin-top="0"
@@ -217,7 +217,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -378,40 +378,37 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="188.89853"
-       y="127.92041"
+       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="180.68425"
+       y="1002.403"
        id="text6114"
-       sodipodi:linespacing="125%"
-       transform="translate(0,875.19684)"><tspan
+       sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6116"
-         x="188.89853"
-         y="127.92041">tubelens</tspan></text>
+         x="180.68425"
+         y="1002.403">tubelens</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="234.10284"
-       y="113.02066"
+       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="214.81712"
+       y="990.36035"
        id="text6118"
-       sodipodi:linespacing="125%"
-       transform="translate(0,875.19684)"><tspan
+       sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6120"
-         x="234.10284"
-         y="113.02066">objective</tspan></text>
+         x="214.81712"
+         y="990.36035">objective</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="261.12442"
-       y="53.926735"
+       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="238.98157"
+       y="931.6236"
        id="text6122"
-       sodipodi:linespacing="125%"
-       transform="translate(0,875.19684)"><tspan
+       sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6124"
-         x="261.12442"
-         y="53.926735">sample</tspan></text>
+         x="238.98157"
+         y="931.6236">sample</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -467,36 +464,36 @@
      transform="translate(0.20153268,-35.23175)">
     <text
        xml:space="preserve"
-       style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="92.599121"
-       y="39.475403"
+       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="87.241982"
+       y="66.618263"
        id="text3990"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3992"
-         x="92.599121"
-         y="39.475403">MMA</tspan></text>
+         x="87.241982"
+         y="66.618263">MMA</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="160.45627"
-       y="39.391907"
+       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="154.38484"
+       y="70.82048"
        id="text3994"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3996"
-         x="160.45627"
-         y="39.391907">LCOS</tspan></text>
+         x="154.38484"
+         y="70.82048">LCOS</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="31.170549"
-       y="39.772766"
+       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="16.884834"
+       y="47.987053"
        id="text3998"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4000"
-         x="31.170549"
-         y="39.772766">Tunnel</tspan></text>
+         x="16.884834"
+         y="47.987053">Tunnel</tspan></text>
   </g>
 </svg>
