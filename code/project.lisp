@@ -97,7 +97,7 @@ touching cone on a nucleus."
 (refract-objective-detection (v .1 0 -3.1) (v 0 0 1) 1.5s0 2s0 (v) (v 0 0 -1))
 
 
-(with-asy "/dev/shm/o2.asy"
+(with-asy "/dev/shm/objective.asy"
   (asy "import three;")
   (asy "size(1000,1000);")
   ;; coordinate axes
@@ -124,13 +124,13 @@ touching cone on a nucleus."
 	 (cos-theta (dot i normal))
 	 (r (.- (.s (/ f cos-theta) i)
 		rho)))
-    (values r lens-hit)))
+    (values (normalize r) lens-hit)))
 
 #+nil
 (refract-thin-lens (v -.1 0 -2) (normalize (v .1 0 1))
 		   2.0 (v) (v 0 0 1))
 
-(with-asy "/dev/shm/o3.asy"
+(with-asy "/dev/shm/tubelens.asy"
   (asy "import three;")
   (asy "size(1000,1000);")
   ;; coordinate axes
@@ -146,3 +146,34 @@ touching cone on a nucleus."
 	       (coord p)
 	       (coord e)
 	       (coord (.+ e (.s 1s0 r)))))))))
+
+
+(with-asy "/dev/shm/microscope.asy"
+  (asy "import three;")
+  (asy "size(1000,1000);")
+  ;; coordinate axes
+  (asy "draw((0,0,0)--(1,0,0),red);")
+  (asy "draw((0,0,0)--(0,1,0),green);")
+  (asy "draw((0,0,0)--(0,0,1),blue);")
+  (let* ((rays 4)
+	 (p (v .1 0 -3.1))
+	 (obj-c (v))
+	 (obj-n (v 0 0 -1))
+	 (obj-f 2.0)
+	 (tube-f 10.0)
+	 (tube-c (v 0 0 (+ obj-f tube-f)))
+	 (tube-n (v 0 0 1)))
+    (dotimes (i rays)
+      (dotimes (j rays)
+       (let* ((dir (normalize (v (/ (- i (floor rays 2)) rays)
+				 (/ (- j (floor rays 2)) rays)
+				 1))))
+	 (multiple-value-bind (r e) (refract-objective-detection p dir
+								 1.5 obj-f obj-c obj-n)
+	   (multiple-value-bind (rr ee) (refract-thin-lens e r tube-f tube-c tube-n)
+	     (asy "draw((~a)--(~a)--(~a)--(~a));" 
+		  (coord p)
+		  (coord e)
+		  (coord ee)
+		  (coord (.+ ee (.s (* 1.2 tube-f) rr)))
+		  ))))))))
