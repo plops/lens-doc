@@ -27,4 +27,5 @@
   (:use :cl :base)
   (:export
    #:refract-plane
-   #:intersect-plane))
+   #:intersect-plane
+   #:intersect-sphere))

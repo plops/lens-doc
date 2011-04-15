@@ -80,3 +80,45 @@ touching cone on a nucleus."
 	       (coord e)
 	       (coord i)
 	       (coord (.+ i (.s 5s0 ht)))))))))
+
+;; normal is directed towards sample
+(defun refract-objective-detection (p i n f center normal)
+  (declare (type vec p i normal center)
+	   (type num n f))
+  (let* ((gauss-center (.+ center (.s (* n f) normal)))
+	(nf-hit (intersect-plane p i gauss-center  normal))
+	(e (intersect-sphere p i gauss-center (* n f)))
+	(a (.s (* f (- 1 n)) normal))
+	(f-mid (.- nf-hit a))
+	(m (normalize (.- center f-mid))))
+    (values m e)))
+
+#+nil
+(refract-objective-detection (v .1 0 -3.1) (v 0 0 1) 1.5s0 2s0 (v) (v 0 0 -1))
+
+
+(with-asy "/dev/shm/o2.asy"
+  (asy "import three;")
+  (asy "size(1000,1000);")
+  ;; coordinate axes
+  (asy "draw((0,0,0)--(1,0,0),red);")
+  (asy "draw((0,0,0)--(0,1,0),green);")
+  (asy "draw((0,0,0)--(0,0,1),blue);")
+  (let ((rays 13)
+	(p (v .1 0 -3.1)))
+    (dotimes (i rays)
+      (let* ((dir (normalize (v (- (/ i rays) .5) 0 1))))
+	(multiple-value-bind (r e) (refract-objective-detection p dir
+								1.5 2.0 (v) (v 0 0 -1))
+	  (asy "draw((~a)--(~a)--(~a));" 
+	       (coord p)
+	       (coord e)
+	       (coord (.+ e (.s 1s0 r)))))))))
+
+(defun refract-thin-lens (start i f center normal)
+  (declare (type vec start i normal center)
+	   (type num f))
+  (let ((lens-hit (intersect-plane start i center normal))
+	(rho (.- lens-hit center))
+	;; I just realize that I don't have to calculate phi
+	)))
