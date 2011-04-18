@@ -17,9 +17,17 @@
 		    `(progn
 		       (format ,',s ,str ,@rest)
 		       (terpri ,',s))))
-	 (flet ((coord (v)
-		  (format nil "(~f,~f,~f)" (vx v) (vy v) (vz v))))
+	 (labels ((coord (v)
+		    (format nil "(~f,~f,~f)" (vx v) (vy v) (vz v)))
+		  (line (&rest vecs)
+		    (when (listp vecs)
+		      (format ,s "draw(~a" (coord (first vecs)))
+		      (dolist (v (cdr vecs))
+			(format ,s "--~a" (coord v)))
+		      (format ,s ");~%"))))
 	   ,@body)))))
+
+
 
 (defun prepare-out-of-focus (target s &key (ne 1.33s0) (r 1.2s0))
   "Input dimensions are in um and not corrected for embedding index."
@@ -189,4 +197,29 @@ position and direction if index jump wouldn't exist."
 	 (dir! (refract-plane dir normal ne/n))
 	 (scaled-photon-distance (* ne/n (norm (.- f start))))
 	 (start! (.- f (.s scaled-photon-distance dir!))))
-    (values dir! start!)))
+    (values dir! start! f)))
+
+(with-asy "/dev/shm/objective-aberrate.asy"
+  (asy "import three;")
+  (asy "size(1000,1000);")
+  ;; coordinate axes
+  (asy "draw((0,0,0)--(1,0,0),red);")
+  (asy "draw((0,0,0)--(0,1,0),green);")
+  (asy "draw((0,0,0)--(0,0,1),blue);")
+  (let ((rays 13)
+	(p (v .1 0 -3.1))
+	(slide-center (v 0 0 -1))
+	(slide-normal (v 0 0 -1))
+	(n 1.5)
+	(ne 1.3))
+    (dotimes (i rays)
+      (let* ((dir (normalize (v (- (/ i rays) .5) 0 1))))
+	(multiple-value-bind (dir! start! f!)
+	    (aberrate-index-plane p dir slide-center slide-normal (/ ne n))
+	  (multiple-value-bind (r e) 
+	      (refract-objective-detection start! dir!
+					   n 2.0 (v) (v 0 0 -1))
+	    (line p
+		  f!
+		  e
+		  (.+ e (.s 1s0 r)))))))))
