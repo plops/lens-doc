@@ -165,7 +165,7 @@ periphery and there is only one solution. A positive determinant
 corresponds to two solutions.
 \begin{align}
   d&:=\boxed{b^2-4ac}\\
-  q&:=\boxed{\frac{b+\sqrt{d}\sign b}{2}}\\
+  q&:=\boxed{-\frac{b+\sqrt{d}\sign b}{2}}\\
   \tau&=\boxed{
   \begin{cases}
     \frac{q}{a} &\,\textrm{when}\,\abs{q}\approx 0\\ 
@@ -185,14 +185,14 @@ corresponds to two solutions.
 \item calculate intersection $\vrho$ of incident ray which is defined
   by its direction $\i$ and some start position
 \item draw a line with direction $\i$ through the center of the lens,
-  its intersection with the focal plane defines where the direction
-  $\r$ of the exiting ray
+  its intersection with the focal plane defines the direction $\r$ of
+  the exiting ray
 \item the length of the hypothenuse $\overline{OF}$ is $f/\cos\theta$
 \item triangle $ABC$ is similar to triangle $FOA$, therefor we can
   obtain the length $\abs{\overline{BC}}$ 
   \begin{align}
-    \frac{\abs{\overline{BC}}}{\overline{BA}}&=
-    \frac{\abs{\overline{OA}}}{\overline{OF}}\\
+    \frac{\abs{\overline{BC}}}{\abs{\overline{BA}}}&=
+    \frac{\abs{\overline{OA}}}{\abs{\overline{OF}}}\\
     \frac{\abs{\overline{BC}}}{1}&=
     \frac{\rho}{f/cos\theta}
   \end{align}
@@ -236,6 +236,8 @@ corresponds to two solutions.
   through a real $100\times\,1.41$ objective, focus displacement
   errors are less than \unit[130]{nm} for a field of $\unit[86.4]{\mu
     m}$ radius
+\item in our case the approximation is unnecessary as we can determine
+  $\s$ as a ray-sphere intersection as well
 \item the final ray exiting the objective has the direction $\r_0$
 \begin{align}
   \r_0 &= \boxed{\r + \a - \s}
