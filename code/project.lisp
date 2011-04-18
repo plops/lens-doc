@@ -249,7 +249,7 @@ position and direction if index jump wouldn't exist."
     (dotimes (i rays)
       (let* ((dir (normalize (v (/ (- i (floor rays 2)) rays)
 				0
-				.8))))
+				.3))))
 	(multiple-value-bind (dir! start! f!)
 	    (aberrate-index-plane start dir slide-center slide-normal (/ ne n))
 	  (multiple-value-bind (r e)

@@ -61,5 +61,6 @@
          (b (* 2s0 (dot l dir))))
     (the vec (multiple-value-bind (a q)
 		 (quadratic-root 1s0 b c)
-	       (declare (ignore q))
-	       (.+ start (.s a dir))))))
+	       ;; we are only interested in the intersection in
+	       ;; forward direction of the ray
+	       (.+ start (.s (max a q) dir))))))
