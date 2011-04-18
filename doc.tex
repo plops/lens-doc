@@ -22,6 +22,8 @@
 \author{Martin Kielhorn}
 \date{2011-04-11}
 
+\DeclareMathOperator{\sign}{sign}
+
 \begin{document}
 
 \maketitle
@@ -44,7 +46,7 @@
 \def\z{\vect z}
 \def\q{\vect q}
 \def\p{\vect p}
-
+\def\l{\vect l}
 
 \newcommand{\nvect}[1]{\vect{\hat{#1}}}
 \renewcommand{\i}{\nvect i}
@@ -60,6 +62,7 @@
 \def\m{\nvect m}
 \def\vrho{\boldsymbol\rho}
 \def\abs#1{\mathopen| #1 \mathclose|}
+
 \newcommand{\bild}[1]{\includegraphics[width=7cm]{#1}}
 \section{Refraction}
 \subsection{Refraction at plane surface}
@@ -139,7 +142,37 @@ the parameter $\tau$:
    \input{plane-intersection.pdf_tex}
    \caption{Schematic for describing the plane-ray intersection.}
  \end{figure}
-
+\subsection{Intersection of a ray and a sphere}
+A ray may start at a point $\s$ and may have the direction $\hd$.  A
+sphere is defined by its center $\c$ and its radius $R$.  The two
+equations
+\begin{align}
+  (\r-\c)^2&=R^2\\
+  \r&=\s+\tau\hd
+\end{align}
+define the intersection points. Substitution of $\r$ results in a
+quadratic equation for $\tau$:
+\begin{align}
+  (\s+\tau\hd-\c)^2&=R^2\\
+  \l&:=\boxed{\s-\c}\\
+  l^2+2\tau\l\hd+\tau^2-R^2&=0\\
+  \tau^2+\underbrace{2\l\hd}_b\tau+\underbrace{l^2-R^2}_c&=0
+\end{align}
+\subsubsection{Solving the quadratic equation}
+If the determinant $d$ is negative the ray misses the sphere and there
+is no solution. If the determinant is zero the ray touches the
+periphery and there is only one solution. A positive determinant
+corresponds to two solutions.
+\begin{align}
+  d&:=\boxed{b^2-4ac}\\
+  q&:=\boxed{\frac{b+\sqrt{d}\sign b}{2}}\\
+  \tau&=\boxed{
+  \begin{cases}
+    \frac{q}{a} &\,\textrm{when}\,\abs{q}\approx 0\\ 
+    \frac{c}{q} &\,\textrm{when}\,\abs{a}\approx 0\\
+    (\frac{q}{a}, \frac{c}{q}) &\,\textrm{else}
+  \end{cases}}
+\end{align}
 \subsection{Refraction on thin lens}
 %\bild{thin-lens.jpg}
 \begin{figure}[!hbt]
