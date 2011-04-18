@@ -165,8 +165,9 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 
 (defun v-spherical (theta phi)
   "Convert spherical coordinates into cartesian."
-  (declare (type (single-float 0s0 #.(/ (coerce pi 'num) 4)) theta)
-	   (type (single-float #.(coerce (- pi) 'num) #.(coerce pi 'num)) phi))
+  (declare (type num theta phi) 
+   #+nil (type (single-float 0s0 #.(/ (coerce pi 'num) 4)) theta)
+	   #+nil (type (single-float #.(coerce (- pi) 'num) #.(coerce pi 'num)) phi))
   (let* ((st (sin theta)))
     (the vec
       (v (* st (cos phi))

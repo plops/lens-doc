@@ -24,7 +24,13 @@
 		      (format ,s "draw(~a" (coord (first vecs)))
 		      (dolist (v (cdr vecs))
 			(format ,s "--~a" (coord v)))
-		      (format ,s ");~%"))))
+		      (format ,s ");~%")))
+		  (line-colored (color &rest vecs)
+		    (when (listp vecs)
+		      (format ,s "draw(~a" (coord (first vecs)))
+		      (dolist (v (cdr vecs))
+			(format ,s "--~a" (coord v)))
+		      (format ,s ",~a);~%" color))))
 	   ,@body)))))
 
 
@@ -123,7 +129,61 @@ touching cone on a nucleus."
 	       (coord e)
 	       (coord (.+ e (.s 1s0 r)))))))))
 
-;; normal is directed in the opposite direction direction of i
+;; normal is directed in the direction of i
+(defun refract-objective-illumination (start dir n f center normal)
+  (declare (type vec start dir normal center)
+	   (type num f n))
+  (let* ((lens-hit (intersect-plane start dir center normal))
+	 (rho (.- lens-hit center))
+	 (rho2 (dot rho rho))
+	 (cos-theta (dot dir normal))
+	 (r (.- (.s (/ f cos-theta) dir)
+		rho))
+	 (a (.s (* f (- n 1)) normal))
+	 (nf (* n f))
+	 (nf2 (* nf nf))
+	 (s (.s (- nf (sqrt (- nf2 rho2) )) dir)))
+    (values (normalize (.- (.+ r a) s)) (.+ s lens-hit))))
+
+;; check that raytracing from the back focal plane into the sample
+;; gives the same rays as the reverse
+(with-asy "/dev/shm/objective-compare.asy"
+  (asy "import three;")
+  (asy "size(1000,1000);")
+  ;; coordinate axes
+  (asy "draw((0,0,0)--(1,0,0),red);")
+  (asy "draw((0,0,0)--(0,1,0),green);")
+  (asy "draw((0,0,-3.2)--(0,0,1),blue);")
+  (let* ((rays 11)
+	 (n 1.5)
+	 (f 2.0)
+	 (start (v .4 0 -3))
+	 (obj-c (v))
+	 (obj-n (v 0 0 -1))
+	 (bfp-c (v 0 0 f))
+	 (bfp-n obj-n))
+    (dotimes (i rays)
+      (let* ((dir (v-spherical (* 1.4s0 (/ (+ .000001 (- i (floor rays 2))) rays))
+			       0s0)))
+	(multiple-value-bind (r e)
+	    (refract-objective-detection start dir n f obj-c obj-n)
+	  (let ((dy (v 0 .01 0))
+		(bfp (intersect-plane e r bfp-c bfp-n)))
+	    (line-colored "red" start e 
+			  (.- e (.s 4s0 dy))
+			  (.+ e r) bfp)
+	    (multiple-value-bind (rr ee)
+		(refract-objective-illumination bfp (.s -1s0 r)
+						n f obj-c obj-n)
+	      (line (.+ dy bfp) 
+		    (.+ (.s 10s0 dy) ee) 
+		    (.+ (.s 5. dy) ee)
+		    (.+ dy ee (.s 3.1s0 rr))))
+	   ))))))
+
+
+
+;; normal is directed in the opposite direction of i
 (defun refract-thin-lens (start i f center normal)
   (declare (type vec start i normal center)
 	   (type num f))
