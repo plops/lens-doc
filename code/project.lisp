@@ -177,3 +177,16 @@ touching cone on a nucleus."
 		  (coord ee)
 		  (coord (.+ ee (.s (* 1.2 tube-f) rr)))
 		  ))))))))
+
+;; normal opposing dir
+(defun aberrate-index-plane (start dir center normal ne/n)
+  "A light source is embedded in index ne. CENTER and NORMAL define a
+plane interface to a region of index n. Find equivalent source
+position and direction if index jump wouldn't exist."
+  (declare (type vec start dir center normal)
+	   (type num ne/n))
+  (let* ((f (intersect-plane start dir center normal))
+	 (dir! (refract-plane dir normal ne/n))
+	 (scaled-photon-distance (* ne/n (norm (.- f start))))
+	 (start! (.- f (.s scaled-photon-distance dir!))))
+    (values dir! start!)))
