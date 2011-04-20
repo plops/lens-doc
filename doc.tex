@@ -404,6 +404,31 @@ $r=\unit[1.2]{n_e \mu m}$. Note that dimensions are multiplied with
 the refractive index $n_e=1.33$ of the embedding medium (water) as for
 the light the medium increases distances.
 
+\subsection{Defocus due to aberrations}
+\begin{figure}[!hbt]
+  \centering
+  \bild{screen_microscope-aberrate.png}
+  \caption{Raytracing through an objective followed by a tubelens. The
+    focal length of the tubelens in this simulation is \unit[16]{mm}
+    (as opposed to the usual \unit[160]{mm}) so that the plot fits
+    into an unscaled image.}
+\end{figure}
+
+For an objective focal length of \unit[2.61]{mm}, a tubelength of
+\unit[160]{mm}, an immersion index of $n=1.52$ and an embedding index
+of $n_e=1.33$ the raytracing simulation gives the following results:
+\begin{figure}[!hbt]
+  \centering
+  \bild{focus-displacement.pdf}
+  \bild{focus-displacement-zoomed.pdf}
+  \caption{Plot of the focus displacement of a point on the optical
+    axis for rays that intersect the back focal plane in different
+    positions. The tubelength for this simulation was
+    \unit[160]{mm}. Note that rays the intersect the back focal plane
+    at \unit[50]{mm} distance to the optical axis don't enter the
+    tubelens.}
+\end{figure}
+
 \section{Ferroelectric liquid crystals}
 (See 1991Saleh p.~722 and Goodman 192)
 
@@ -415,4 +440,5 @@ the light the medium increases distances.
   \caption{Simplified schematic of the MEMI system.}
 \end{figure}
 \end{document}
+
 

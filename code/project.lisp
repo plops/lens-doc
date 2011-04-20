@@ -292,19 +292,20 @@ position and direction if index jump wouldn't exist."
 		  (.+ start! (.s 2s0 dir!)))
 	    (line p f! e (.+ e r))))))))
 
-(loop for embedding-depth in '(.001 .003 .01 .03 .1) do
+(loop for embedding-depth in '(.001 .003 .1 .03 .01) do
  (with-asy "/dev/shm/microscope-aberrate.asy"
    (asy "import three;")
-   (asy "size(1000,1000);")
+   (asy "size(3000,3000);")
+   (asy "currentprojection=orthographic((0,10,0),(1,0,0));")
    ;; coordinate axes
    (asy "draw((0,0,0)--(1,0,0),red);")
    (asy "draw((0,0,0)--(0,1,0),green);")
    (asy "draw((0,0,0)--(0,0,1),blue);")
-   (let* ((rays 300)
+   (let* ((rays 30)
 	  (obj-c (v))
 	  (obj-n (v 0 0 -1))
 	  (obj-f 2.61)
-	  (tube-f 160.0)
+	  (tube-f 16.0)
 	  (tube-c (v 0 0 (+ obj-f tube-f)))
 	  (tube-n (v 0 0 1))
 	  (n 1.52)
@@ -332,16 +333,27 @@ position and direction if index jump wouldn't exist."
        (line (.- cam (v 1 0 0)) 
 	     (.+ cam (v 1 0 0)))
        (line-colored "red" (v 0 0 -4) cam))
-     (with-open-file (gp "/dev/shm/focus-displacement.gp"
-			 :direction :output
-			 :if-exists :supersede
-			 :if-does-not-exist :create)
-       (format gp "set terminal pdf; set output \"/dev/shm/focus-displacement.pdf\"; set grid;
+     (with-open-file (gp-zoomed "/dev/shm/focus-displacement-zoom.gp"
+				:direction :output
+				:if-exists :supersede
+				:if-does-not-exist :create)
+      (with-open-file (gp "/dev/shm/focus-displacement.gp"
+			  :direction :output
+			  :if-exists :supersede
+			  :if-does-not-exist :create)
+	(format gp "set terminal pdf; set output \"/dev/shm/focus-displacement.pdf\"; set grid;
 set xlabel \"bfp ray intersection/mm\";
 set ylabel \"focus displacement/mm\";
 set title \"Water depths 1, 3, 10, 30, 100 um\";
-plot \"/dev/shm/focus-displacement.dat\" u 1:2 w l;")) 
-     ;; rm focus-displacement.dat; for i  in  focus-displacement_*.dat; do cat $i >> focus-displacement.dat; echo >> focus-displacement.dat ; done
+plot \"/dev/shm/focus-displacement.dat\" u 1:2 w l;")
+	(format gp-zoomed "set terminal pdf; set output \"/dev/shm/focus-displacement-zoomed.pdf\";
+ set grid;
+set xlabel \"bfp ray intersection/mm\";
+set ylabel \"focus displacement/mm\";
+set yrange [-1:1];
+set title \"Water depths 1, 3, 10, 30, 100 um\";
+plot \"/dev/shm/focus-displacement.dat\" u 1:2 w l;"))) 
+     ;; rm focus-displacement.dat; for i  in  focus-displacement_*.dat; do cat $i >> focus-displacement.dat; echo >> focus-displacement.dat ; done; for i in *.gp ;do gnuplot $i ;done
 
      (with-open-file (splot (format nil "/dev/shm/focus-displacement_~a.dat" embedding-depth)
 			    :direction :output
