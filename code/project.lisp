@@ -292,55 +292,71 @@ position and direction if index jump wouldn't exist."
 		  (.+ start! (.s 2s0 dir!)))
 	    (line p f! e (.+ e r))))))))
 
-
-(with-asy "/dev/shm/microscope-aberrate.asy"
-  (asy "import three;")
-  (asy "size(100000,100000);")
-  ;; coordinate axes
-  (asy "draw((0,0,0)--(1,0,0),red);")
-  (asy "draw((0,0,0)--(0,1,0),green);")
-  (asy "draw((0,0,0)--(0,0,1),blue);")
-  (let* ((rays 31)
-	 (obj-c (v))
-	 (obj-n (v 0 0 -1))
-	 (obj-f 2.0)
-	 (tube-f 10.0)
-	 (tube-c (v 0 0 (+ obj-f tube-f)))
-	 (tube-n (v 0 0 1))
-	 (n 1.5)
-	 (ne 1.3)
-	 (embedding-depth .03) 
- 	 (displaced-focus (v 0 0 (+ (* -1 ne embedding-depth)
-				    (- (* n (- obj-f embedding-depth))))))
-	 (slide-center (.+ displaced-focus
-			   (.s (* -1 n embedding-depth) obj-n)))
-	 (slide-normal obj-n)
+(loop for embedding-depth in '(.001 .003 .01 .03 .1) do
+ (with-asy "/dev/shm/microscope-aberrate.asy"
+   (asy "import three;")
+   (asy "size(1000,1000);")
+   ;; coordinate axes
+   (asy "draw((0,0,0)--(1,0,0),red);")
+   (asy "draw((0,0,0)--(0,1,0),green);")
+   (asy "draw((0,0,0)--(0,0,1),blue);")
+   (let* ((rays 300)
+	  (obj-c (v))
+	  (obj-n (v 0 0 -1))
+	  (obj-f 2.61)
+	  (tube-f 160.0)
+	  (tube-c (v 0 0 (+ obj-f tube-f)))
+	  (tube-n (v 0 0 1))
+	  (n 1.52)
+	  (ne 1.33)
+	 ; (embedding-depth .001) 
+	  (displaced-focus (v 0 0 (+ (* -1 ne embedding-depth)
+				     (- (* n (- obj-f embedding-depth))))))
+	  (slide-center (.+ displaced-focus
+			    (.s (* -1 n embedding-depth) obj-n)))
+	  (slide-normal obj-n)
 	 
-	 (start (.+ displaced-focus (v .1 0 0))))
-    (line-colored "blue" slide-center  ;; interface between embedding and immersion 
-	  (.+ slide-center (v 2 0 0)))
-    (line (v 0 0 (* -1 n obj-f)) ;; focus for ne=n
-	  (v 1 0 (* -1 n obj-f)))
-    (line-colored "red" displaced-focus ;; this is the focus for an on-axis ray 
-	  (.+ displaced-focus (v -2 0 0)))
-    (asy "draw(shift((0,0,~a))*rotate(90,(1,0,0))*scale3(~a)*unitcircle3);"
-	 (* -1 n obj-f) (* n obj-f)) ;; gaussian sphere
-    (line (.- tube-c (v 3 0 0))		     ;; tubelens
-	  (.+ tube-c (v 3 0 0)))
+	  (start (.+ displaced-focus (v 0 0 0))))
+     (line-colored "blue" slide-center ;; interface between embedding and immersion 
+		   (.+ slide-center (v 2 0 0)))
+     (line (v 0 0 (* -1 n obj-f)) ;; focus for ne=n
+	   (v 1 0 (* -1 n obj-f)))
+     (line-colored "red" displaced-focus ;; this is the focus for an on-axis ray 
+		   (.+ displaced-focus (v -2 0 0)))
+     (asy "draw(shift((0,0,~a))*rotate(90,(1,0,0))*scale3(~a)*unitcircle3);"
+	  (* -1 n obj-f) (* n obj-f)) ;; gaussian sphere
+     (line (.- tube-c (v 3 0 0))      ;; tubelens
+	   (.+ tube-c (v 3 0 0)))
     
-    (let ((cam (v 0 0 (+ obj-f tube-f tube-f)))) ;; image
-      (line (.- cam (v 1 0 0)) 
-	    (.+ cam (v 1 0 0)))
-      (line-colored "red" (v 0 0 -4) cam))
-    (dotimes (i rays)
-      (let* ((dir (v-spherical (* 3.1s0 (/ (- i (floor rays 2)) rays))
-			       0s0)))
-	(multiple-value-bind (dir! start! f!)
-	    (aberrate-index-plane start dir slide-center slide-normal (/ ne n))
-	  (multiple-value-bind (r e)
-	      (refract-objective-detection start! dir!
-					   n obj-f obj-c obj-n)
-	    (multiple-value-bind (rr ee) 
-		(refract-thin-lens e r tube-f tube-c tube-n)
-	      (line start f! e ee (.+ ee (.s (* 1.2 tube-f) rr))
-		    ))))))))
+     (let ((cam (v 0 0 (+ obj-f tube-f tube-f)))) ;; image
+       (line (.- cam (v 1 0 0)) 
+	     (.+ cam (v 1 0 0)))
+       (line-colored "red" (v 0 0 -4) cam))
+     (with-open-file (gp "/dev/shm/focus-displacement.gp"
+			 :direction :output
+			 :if-exists :supersede
+			 :if-does-not-exist :create)
+       (format gp "set terminal pdf; set output \"/dev/shm/focus-displacement.pdf\"; set grid;
+set xlabel \"bfp ray intersection/mm\";
+set ylabel \"focus displacement/mm\";
+set title \"Water depths 1, 3, 10, 30, 100 um\";
+plot \"/dev/shm/focus-displacement.dat\" u 1:2 w l;")) 
+     ;; rm focus-displacement.dat; for i  in  focus-displacement_*.dat; do cat $i >> focus-displacement.dat; echo >> focus-displacement.dat ; done
+
+     (with-open-file (splot (format nil "/dev/shm/focus-displacement_~a.dat" embedding-depth)
+			    :direction :output
+			    :if-exists :supersede :if-does-not-exist :create)
+       (dotimes (i rays)
+	 (let* ((dir (v-spherical (* 1.5 (atan (* 3.1s0 (/ (- i (floor rays 2)) rays))))
+				  0s0)))
+	   (multiple-value-bind (dir! start! f!)
+	       (aberrate-index-plane start dir slide-center slide-normal (/ ne n))
+	     (multiple-value-bind (r e)
+		 (refract-objective-detection start! dir!
+					      n obj-f obj-c obj-n)
+	       (multiple-value-bind (rr ee) 
+		   (refract-thin-lens e r tube-f tube-c tube-n)
+		 (line start f! e ee (.+ ee (.s (* 1.2 tube-f) rr)))
+		 (let ((bfp (intersect-plane e r (v 0 0 obj-f) (v 0 0 1)))
+		       (hit (intersect-plane ee rr (v 0 0 (+ obj-f tube-f tube-f)) (v 0 0 1))))
+		   (format splot "~a ~a~%" (vx bfp) (vx hit))))))))))))
