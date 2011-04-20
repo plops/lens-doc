@@ -403,31 +403,7 @@ $\s=\unit[(6,0,7)^T]{n_e \mu m}$ with a nucleus radius
 $r=\unit[1.2]{n_e \mu m}$. Note that dimensions are multiplied with
 the refractive index $n_e=1.33$ of the embedding medium (water) as for
 the light the medium increases distances.
-
-\subsection{Defocus due to aberrations}
-\begin{figure}[!hbt]
-  \centering
-  \bild{screen_microscope-aberrate.png}
-  \caption{Raytracing through an objective followed by a tubelens. The
-    focal length of the tubelens in this simulation is \unit[16]{mm}
-    (as opposed to the usual \unit[160]{mm}) so that the plot fits
-    into an unscaled image.}
-\end{figure}
-
-For an objective focal length of \unit[2.61]{mm}, a tubelength of
-\unit[160]{mm}, an immersion index of $n=1.52$ and an embedding index
-of $n_e=1.33$ the raytracing simulation gives the following results:
-\begin{figure}[!hbt]
-  \centering
-  \bild{focus-displacement.pdf}
-  \bild{focus-displacement-zoomed.pdf}
-  \caption{Plot of the focus displacement of a point on the optical
-    axis for rays that intersect the back focal plane in different
-    positions. The tubelength for this simulation was
-    \unit[160]{mm}. Note that rays the intersect the back focal plane
-    at \unit[50]{mm} distance to the optical axis don't enter the
-    tubelens.}
-\end{figure}
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
 
 \section{Ferroelectric liquid crystals}
 (See 1991Saleh p.~722 and Goodman 192)
@@ -438,6 +414,73 @@ of $n_e=1.33$ the raytracing simulation gives the following results:
   % \def\svgwidth{\columnwidth} % sets the image width, this is optional
   \input{memi-simple.pdf_tex}
   \caption{Simplified schematic of the MEMI system.}
+\end{figure}
+
+\subsection{Defocus due to aberrations}
+\begin{itemize}
+\item think of a photon traveling along the optical axis from
+  objective towards sample (see \figref{fig:aberration-sketch})
+\item in the unaberrated case the focal plane would be at the center
+  of the gaussian sphere at $nf$ optical length from intersection of sphere
+  with optical axis
+\item in the aberrated case the optical length inside glass/oil is $n(f-h)$,
+  where $h$ is the water depth; the optical length in water is $n_eh$
+\item we are interested in how the displacement $q$ varies with the
+  intersection $r$ of the ray in the back focal plane (for a defined
+  water depth $h$) (see \figref{fig:focus-displacement} for results of
+  a simulation)
+\item the maximum value for $r$ is $R_\textrm{BFP}=f\textrm{NA}$
+\item notice that $q(r)$ isn't bijective, rays that leave the sample
+  in a very high angle are bent more than rays of moderate angle (see
+  also \figref{fig:screen_microscope-aberrate})
+\item {\color{red}for our application this means that if the MMA is
+    adjusted to bright at the border of the back focal plane a bright
+    spot on the LCoS will lead to two discrete illumination angles.}
+  this could potentially be a problem
+\item the simulation can be quite wrong for high angles as the
+  coverslip will probably not be perfectly plane
+\item the zoomed plot in \figref{fig:screen_microscope-aberrate} shows
+  the focus displacement for moderate angles that exit the sample
+\item the aberrations are stronger when the sample is embedded deeper
+  in water
+\item for a water depth of \unit[100]{$\mu$m} a ray that intersects
+  the back focal plane at \unit[2]{mm} distance off-axis is shifted by
+  \unit[0.5]{mm} in the image (\unit[8.2]{$\mu$m} in the sample)
+\item rays further off-axis are aberrated even more
+\end{itemize}
+\begin{figure}
+   \centering
+   \input{aberration-sketch.pdf_tex}
+   \caption{Schematic depicting the variables involved in focus
+     displacement due to aberrations at a water-coverslip
+     interface. The variable $h$ is the depth of the water, $q$ is the
+     focus displacement in the image.}
+   \label{fig:aberration-sketch}
+ \end{figure}
+ 
+\begin{figure}[!hbt]
+  \centering
+  \bild{screen_microscope-aberrate.png}
+  \caption{Raytracing through an objective followed by a tubelens. The
+    focal length of the tubelens in this simulation is \unit[16]{mm}
+    (as opposed to the usual \unit[160]{mm}) so that the plot fits
+    into an unscaled image.}
+  \label{fig:screen_microscope-aberrate}
+\end{figure}
+
+\begin{figure}[!hbt]
+  \centering
+  \bild{focus-displacement.pdf}
+  \bild{focus-displacement-zoomed.pdf}
+  \caption{Plot of the focus displacement of a point on the optical
+    axis for rays that intersect the back focal plane in different
+    positions. The tubelength for this simulation was
+    \unit[160]{mm}. Note that rays the intersect the back focal plane
+    at \unit[50]{mm} distance to the optical axis don't enter the
+    tubelens. Parameters:x the objective focal length is
+    \unit[2.61]{mm}, the tubelength is \unit[160]{mm}, the immersion
+    index is $n=1.52$ and the embedding index is $n_e=1.33$ }
+  \label{fig:focus-displacement}
 \end{figure}
 \end{document}
 
