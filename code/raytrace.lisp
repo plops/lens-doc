@@ -19,6 +19,7 @@
 (refract-plane (v-spherical .1s0 0s0) (v 0 0 -1) (/ 1.5))
 
 
+
 (defun intersect-plane (start dir c n)
   "Intersection of ray and plane"
   (declare (type vec start dir c n))
@@ -31,7 +32,6 @@
       (the vec (.+ start (.s tau dir))))))
 #+nil
 (intersect-plane (v -1 1) (v 1) (v) (v 1))
-
 
 
 
@@ -63,6 +63,8 @@
 		      (multiple-value-list
 		       (quadratic-root (* 1s0 a) (* 1s0 b) (* 1s0 c))))))))
 
+
+
 (defun intersect-sphere (start dir center radius)
   (declare (type vec start dir center)
            (type num radius))
@@ -82,3 +84,86 @@
 
 #+nil
 (intersect-sphere (v .1) (normalize (v 0 0 1)) (v) 2s0)
+
+
+
+
+(defun refract-objective-detection (p i n f center normal)
+  ;; normal is directed towards sample (opposite i)
+  "Propagate ray defined by start point p and direction i from sample
+through an objective defined by its focal length f, immersion index n
+the center position CENTER and orientation given by NORMAL. NORMAL is
+directed nearly opposite to i."
+  (declare (type vec p i normal center) 
+	   (type num n f))
+  (let* ((gauss-center (.+ center (.s (* n f) normal)))
+	 (nf-hit (intersect-plane p i gauss-center normal))
+	 (e (intersect-sphere p i gauss-center (* n f)))
+	 (a (.s (+ (* f (- n 1))) normal))
+	 (f-mid (.- nf-hit a))
+	 (m (normalize (.- center f-mid))))
+    (values m e)))
+
+#+nil
+(refract-objective-detection (v .1 0 -3.1) (v 0 0 1) 1.5s0 2s0 (v) (v 0 0 -1))
+
+
+
+(defun refract-objective-illumination (start dir n f center normal)
+  ;; normal is directed in the direction of i
+  "Propagate ray defined by start point START and direction DIR from
+behind the objective into the sample. The objective is defined by its
+focal length f, immersion index n the center position CENTER and
+orientation given by NORMAL. NORMAL is directed in nearly the same
+direction as DIR."
+  (declare (type vec start dir normal center)
+	   (type num f n))
+  (let* ((lens-hit (intersect-plane start dir center normal))
+	 (rho (.- lens-hit center))
+	 (cos-theta (dot dir normal))
+	 (r (.- (.s (/ f cos-theta) dir)
+		rho))
+	 (a (.s (* f (- n 1)) normal))
+	 (nf (* n f))
+	 ;; (rho2 (dot rho rho))
+	 ;; (nf2 (* nf nf))
+	 ;; (s (.s (- nf (sqrt (- nf2 rho2) )) dir)) ;; approximation
+	 (gauss-center (.+ center (.s nf normal)))
+	 (s-global (intersect-sphere start dir gauss-center nf))
+	 (s (.- s-global lens-hit)))
+    (values (.+ r (.- a s)) (.+ s lens-hit))))
+
+
+
+(defun refract-thin-lens (start i f center normal)
+  "Refract a ray defined by postion START and direction i through a
+lens of focal length f. The lens position is defined by CENTER and its
+orientation by NORMAL. START can be on either side of the lens."
+  ;; normal is directed in the opposite direction of i
+  (declare (type vec start i normal center)
+	   (type num f))
+  (let* ((lens-hit (intersect-plane start i center normal))
+	 (rho (.- lens-hit center))
+	 (cos-theta (dot i normal)) ;; FIXME does it matter if normal is inverted?
+	 (r (.- (.s (/ f cos-theta) i)
+		rho)))
+    (values (normalize r) lens-hit)))
+
+#+nil
+(refract-thin-lens (v -.1 0 -2) (normalize (v .1 0 1))
+		   2.0 (v) (v 0 0 1))
+
+
+
+(defun aberrate-index-plane (start dir center normal ne/n)
+  ;; normal opposing dir
+  "A light source is embedded in index ne. CENTER and NORMAL define a
+plane interface to a region of index n. Find equivalent source
+position and direction if index jump wouldn't exist."
+  (declare (type vec start dir center normal)
+	   (type num ne/n))
+  (let* ((f (intersect-plane start dir center normal))
+	 (dir! (refract-plane dir normal ne/n))
+	 (scaled-photon-distance (* ne/n (norm (.- f start))))
+	 (start! (.- f (.s scaled-photon-distance dir!))))
+    (values dir! start! f)))

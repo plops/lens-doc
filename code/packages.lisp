@@ -28,4 +28,14 @@
   (:export
    #:refract-plane
    #:intersect-plane
-   #:intersect-sphere))
+   #:intersect-sphere
+   #:refract-objective-detection
+   #:refract-objective-illumination
+   #:refract-thin-lens
+   #:aberrate-index-plane))
+
+(defpackage :project
+  (:use :cl :base :raytrace)
+  (:export
+   #:prepare-out-of-focus
+   #:calc-e)) 
