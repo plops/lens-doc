@@ -478,13 +478,28 @@ plane to render it as a fan of triangles.
     index is $n=1.52$ and the embedding index is $n_e=1.33$ }
   \label{fig:focus-displacement}
 \end{figure}
-
+\def\NA{\textrm{NA}}
 \section{Test}
 Set the target point $\c=(0,0,0)^T$ and the nucleus center to
 $\s=\unit[(6,0,7)^T]{n_e \mu m}$ with a nucleus radius
 $r=\unit[1.2]{n_e \mu m}$. Note that dimensions are \emph{optical}
 path lengths and must be multiplied with the refractive index
-$n_e=1.33$.
+$n_e=1.33$. 
+
+The focal length of the tubelens is $f_\textrm{TL}=\unit[164.5]{mm}$
+and the objective's is $f=f_\textrm{TL}/63=\unit[2.61]{mm}$. The
+numerical aperture of the objective is $\textrm{NA}=1.38$. The radius
+of the back focal plane is $R=f \NA=\unit[3.6]{mm}$.
+
+We set the waterdepth to $h=\unit[10]{\mu m}$. The immersion index is
+$n=1.52$. The focal plane is therefore at the following distance $d$
+left of the objective center:
+\begin{align*}
+  d&=n_eh+n(f-h)\\
+  %&=\unit[(1.33*.01+1.52*(164.5/63-.01))]{mm}\\
+  &=\unit[3.9669]{mm}
+\end{align*}
+as opposed to $nf=\unit[3.9688]{mm}$ for an unabberated objective.
 
 \end{document}
 
