@@ -397,12 +397,6 @@ of the bill board.
 For practical reasons its useful to project vector $\x$ as well. It
 can be used as the center of the (distorted) shape on the back focal
 plane to render it as a fan of triangles.
-\subsection{Test}
-Set the target point $\c=(0,0,0)^T$ and the nucleus center to
-$\s=\unit[(6,0,7)^T]{n_e \mu m}$ with a nucleus radius
-$r=\unit[1.2]{n_e \mu m}$. Note that dimensions are multiplied with
-the refractive index $n_e=1.33$ of the embedding medium (water) as for
-the light the medium increases distances.
 \newcommand{\figref}[1]{\figurename~\ref{#1}}
 
 \section{Ferroelectric liquid crystals}
@@ -484,6 +478,14 @@ the light the medium increases distances.
     index is $n=1.52$ and the embedding index is $n_e=1.33$ }
   \label{fig:focus-displacement}
 \end{figure}
+
+\section{Test}
+Set the target point $\c=(0,0,0)^T$ and the nucleus center to
+$\s=\unit[(6,0,7)^T]{n_e \mu m}$ with a nucleus radius
+$r=\unit[1.2]{n_e \mu m}$. Note that dimensions are \emph{optical}
+path lengths and must be multiplied with the refractive index
+$n_e=1.33$.
+
 \end{document}
 
 
