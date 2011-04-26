@@ -8,12 +8,12 @@
 
 (let* ((ne 1.33)
        (n 1.52)
-       (na 1.38)
+       (na 1.52)
        (ftl 164.5)
        (mag 63s0)
        (f (/ ftl mag))
        (c (.s ne (v 0 0 0)))
-       (s (.s ne (v -6s-3 0 -7s-3)))
+       (s (.s ne (v 0s-3 0 -7s-3)))
        (r (* ne 1.2s-3))
        (rbfp (* f na))
        (h .01)
@@ -24,26 +24,27 @@
        (slip-normal (v 0 0 -1))
        (obj-center (v))
        (obj-normal (v 0 0 -1))
-       (bfp-center (v 0 0 f))
-       (bfp-normal obj-normal))
+       (tube-center (v 0 0 (+ f ftl)))
+       (tube-normal (v 0 0 1)))
   (format t "~a~%" (list 'f f 'rbfp rbfp 'd d 'delta-d-um (* 1000 (- (* n f) d))))
   (with-asy "/dev/shm/projection-test.asy"
     (asy "import three;")
     (asy "size(100000,100000);")
-    (asy "currentprojection=perspective(
-camera=(0,15,0),up=(0,0,1),target=~a,
+    #+nil (asy "currentprojection=perspective(
+camera=(0,205,0),up=(0,0,1),target=~a,
 zoom=1,angle=0,autoadjust=false);" (coord (v 0 0 (- d))))
-    #+nil     (asy "currentprojection=orthographic(
+     (asy "currentprojection=orthographic(
 camera=(0,10000,0),up=(0,0,1),target=~a,showtarget=false,center=true);" 
 	 (coord (v 0 0 (- d))))
 
-    (line (v 0 0 -4) (v 0 0 10)) ; optical axis
+    (line (v 0 0 -4) (v 0 0 (+ f ftl ftl))) ; optical axis
     (line (v rbfp 0 f) (v 0 0 f)) ; bfp
+    (line (v rbfp 0 (+ f ftl)) (v 0 0 (+ f ftl)))		; tubelens
+    (line (v rbfp 0 (+ f ftl ftl)) (v 0 0 (+ f ftl ftl)))		; camera
     (asy "draw(circle(~a,~a));" (coord (v 0 0 f)) rbfp) ; bfp round
     (let* ((gauss-center (v 0 0 (* n f -1)))
-	   (alpha (* (/ 180 +pi+) (asin (/ na n))))
-	   (gauss-periphery (v 0 0 (- rbfp (* n f))))) ; transmissive part of gaussian sphere
-      (asy "draw(arc(~a,~a,~a,0,~a,0),red+linewidth(300));"
+	   (alpha (* (/ 180 +pi+) (asin (/ na n))))) ; transmissive part of gaussian sphere
+      (asy "draw(arc(~a,~a,~a,0,~a,0),red);"
 	   (coord gauss-center) (* n f) (- alpha) alpha)
       (asy "draw(circle(~a,~a,(0,1,0)));" (coord gauss-center) (* n f)))
     (line (v 0 0 (- d)) (v 1 0 (- d))) ; aberrated focus
@@ -73,8 +74,6 @@ camera=(0,10000,0),up=(0,0,1),target=~a,showtarget=false,center=true);"
 		  (multiple-value-bind (r e) 
 		      (refract-objective-detection start! dir!
 						   n f obj-center obj-normal)
-		    #+nil(line start!
-			       (.+ start! (.s 2s0 dir!)))
-		    (let ((bfp (intersect-plane e r bfp-center bfp-normal))) 
-		      (line per f! e bfp))))
-		))))))))
+		    (multiple-value-bind (rr ee) (refract-thin-lens e r ftl
+								    tube-center tube-normal)
+		      (line per f! e ee (.+ ee (.s (* 1.2 ftl) rr))))))))))))))
