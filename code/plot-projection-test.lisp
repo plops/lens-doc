@@ -10,11 +10,11 @@
        (n 1.52)
        (na 1.52)
        (ftl 164.5)
-       (mag 63s0)
+       (mag 63.0)
        (f (/ ftl mag))
        (c (.s ne (v 0 0 0)))
-       (s (.s ne (v 0s-3 0 -7s-3)))
-       (r (* ne 1.2s-3))
+       (s (.s ne (v 0e-3 0 -7e-3)))
+       (r (* ne 1.2e-3))
        (rbfp (* f na))
        (h .01)
        (d (+ (* ne h)
@@ -25,11 +25,13 @@
        (obj-center (v))
        (obj-normal (v 0 0 -1))
        (tube-center (v 0 0 (+ f ftl)))
-       (tube-normal (v 0 0 1)))
+       (tube-normal (v 0 0 1))
+       (field .04)
+       (field-cam (* mag field)))
   (format t "~a~%" (list 'f f 'rbfp rbfp 'd d 'delta-d-um (* 1000 (- (* n f) d))))
   (with-asy "/dev/shm/projection-test.asy"
     (asy "import three;")
-    (asy "size(100000,100000);")
+    (asy "size(1000000,1000000);")
     #+nil (asy "currentprojection=perspective(
 camera=(0,205,0),up=(0,0,1),target=~a,
 zoom=1,angle=0,autoadjust=false);" (coord (v 0 0 (- d))))
@@ -40,14 +42,14 @@ camera=(0,10000,0),up=(0,0,1),target=~a,showtarget=false,center=true);"
     (line (v 0 0 -4) (v 0 0 (+ f ftl ftl))) ; optical axis
     (line (v rbfp 0 f) (v 0 0 f)) ; bfp
     (line (v rbfp 0 (+ f ftl)) (v 0 0 (+ f ftl)))		; tubelens
-    (line (v rbfp 0 (+ f ftl ftl)) (v 0 0 (+ f ftl ftl)))		; camera
+    (line (v field-cam 0 (+ f ftl ftl)) (v 0 0 (+ f ftl ftl)))		; camera
     (asy "draw(circle(~a,~a));" (coord (v 0 0 f)) rbfp) ; bfp round
     (let* ((gauss-center (v 0 0 (* n f -1)))
 	   (alpha (* (/ 180 +pi+) (asin (/ na n))))) ; transmissive part of gaussian sphere
       (asy "draw(arc(~a,~a,~a,0,~a,0),red);"
 	   (coord gauss-center) (* n f) (- alpha) alpha)
       (asy "draw(circle(~a,~a,(0,1,0)));" (coord gauss-center) (* n f)))
-    (line (v 0 0 (- d)) (v 1 0 (- d))) ; aberrated focus
+    (line (v 0 0 (- d)) (v field 0 (- d))) ; aberrated focus
     (line (v 0 0 slip-z) (v 1 0 slip-z)) ; coverslip
     (let ((dz (v 0 0 (- d)))
 	  (normal (v 0 1 0)))

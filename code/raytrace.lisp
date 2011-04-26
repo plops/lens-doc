@@ -17,7 +17,7 @@
 
 
 #+nil
-(refract-plane (v-spherical .1s0 0s0) (v 0 0 -1) (/ 1.5))
+(refract-plane (v-spherical .1e0 0e0) (v 0 0 -1) (/ 1.5))
 
 
 
@@ -44,7 +44,7 @@
     (the num 
       (if (<= det2 0)
 	  (error "no solution")
-	  (let* ((q (* -.5s0 (+ b (* (signum b) (sqrt det2)))))
+	  (let* ((q (* -.5e0 (+ b (* (signum b) (sqrt det2)))))
 		 (aa (abs a))
 		 (aq (abs q)))
 	    (cond ((< aq eps) (values (/ q a) (/ q a)))
@@ -62,7 +62,7 @@
 	(format t "~a~%"
 		(list r 
 		      (multiple-value-list
-		       (quadratic-root (* 1s0 a) (* 1s0 b) (* 1s0 c))))))))
+		       (quadratic-root (* 1e0 a) (* 1e0 b) (* 1e0 c))))))))
 
 
 
@@ -72,9 +72,9 @@
  ; (check-unit-vector dir)
   (let* ((l (.- start center))
          (c (- (dot l l) (* radius radius)))
-         (b (* 2s0 (dot l dir))))
+         (b (* 2e0 (dot l dir))))
     (the vec (multiple-value-bind (t1 t2)
-		 (quadratic-root 1s0 b c)
+		 (quadratic-root 1e0 b c)
 	       ;; we are only interested in the intersection in
 	       ;; forward direction of the ray. if there are two
 	       ;; intersections in forward direction, return the
@@ -84,7 +84,7 @@
 			     dir))))))
 
 #+nil
-(intersect-sphere (v .1) (normalize (v 0 0 1)) (v) 2s0)
+(intersect-sphere (v .1) (normalize (v 0 0 1)) (v) 2e0)
 
 
 
@@ -107,7 +107,7 @@ is directed nearly opposite to i."
     (values m e)))
 
 #+nil
-(refract-objective-detection (v .1 0 -3.1) (v 0 0 1) 1.5s0 2s0 (v) (v 0 0 -1))
+(refract-objective-detection (v .1 0 -3.1) (v 0 0 1) 1.5e0 2e0 (v) (v 0 0 -1))
 
 
 

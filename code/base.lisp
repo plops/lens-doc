@@ -1,15 +1,18 @@
 (in-package :base)
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (setq *read-default-float-format* 'double-float))
+
 (declaim (inline v copy-vec .+ .- .* ./ dot norm normalize .s))
 
 (deftype num ()
-  `single-float)
+  `double-float)
+
 
 (defconstant +pi+ #.(coerce pi 'num))
 (defconstant +2*pi+ #.(coerce (* 2 pi) 'num))
 
 (defconstant +pi/2+ #.(coerce (* .5 pi) 'num))
-
 
 (deftype vec ()
   `(simple-array num 1))
@@ -28,7 +31,7 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 (eval-when (:compile-toplevel)
  (defun num (x)
    (declare (type number x))
-   (coerce x 'single-float)))
+   (coerce x 'double-float)))
 
 (defmacro vec (&rest rest)
   (let ((a (gensym)))
@@ -40,9 +43,9 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 		  (prog1
 		       `(setf (aref ,a ,i)
 			     ,(typecase e ;; FIXME once-only e?
-					(fixnum (* 1s0 e))
+					(fixnum (* 1e0 e))
 					(num e)
-					(t `(* 1s0 ,e))))
+					(t `(* 1e0 ,e))))
 		     (incf i))))
       ,a)))
 
@@ -51,9 +54,9 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 #+nil
 (vec .2 .3 1)
 (defun v (&optional
-	  (x 0s0)
-	  (y 0s0)
-	  (z 0s0))
+	  (x 0e0)
+	  (y 0e0)
+	  (z 0e0))
   (the vec (vec x y z)))
 
 
@@ -104,18 +107,17 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 
 (defun dot (a b)
   (declare (type vec a b))
-  (let ((r 0s0))
+  (let ((r 0e0))
     (declare (type num r))
     (dotimes (i (length a))
       (incf r (* (aref a i) (aref b i))))
     (the num r)))
 #+nil
 (dot (v 1 3 0) (v 3))
-
 (defun norm (v)
   (declare (type vec v))
   (let ((l2 (dot v v)))
-    (declare (type (single-float 0s0) l2)) ;; FIXME: write num here
+    (declare (type num l2))
     (the num (sqrt l2))))
 #+nil
 (norm (v 1 1 0))
@@ -185,7 +187,7 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 (defun check-unit-vector (&rest rest)
   ;; turn off for faster speed
   (dolist (e rest)
-    (unless (< (abs (- (norm e) 1)) 1s-6)
+    (unless (< (abs (- (norm e) 1)) 1d-6)
       (error "vector isn't normalized"))))
 
 #+nil
@@ -243,8 +245,8 @@ so that (ARRAY ...) corresponds to (AREF ARRAY ...)."
 	 (r1 (sb-ext:array-storage-vector r)))
     (dotimes (i (length r1))
       (when 
-	  (setf (aref r1 i) (if (< (abs (aref a1 i)) 1s-7)
-				0s0
+	  (setf (aref r1 i) (if (< (abs (aref a1 i)) 1e-7)
+				0e0
 				(aref a1 i)))))
     r))
 

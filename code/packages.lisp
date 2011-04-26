@@ -12,7 +12,8 @@
    #:determinant
    #:transpose
    #:m*
-   #:chop))
+   #:chop
+   #:*read-default-float-format*))
 
 (defpackage :raster
   (:use :cl :base)
