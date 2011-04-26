@@ -38,7 +38,7 @@
   (:use :cl :base :raytrace)
   (:export
    #:prepare-out-of-focus
-   #:calc-e)) 
+   #:calc-periphery-point)) 
 
 (defpackage :plot-macros
   (:use :cl :base)

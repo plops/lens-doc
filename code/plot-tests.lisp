@@ -24,7 +24,7 @@
       (asy "draw(shift(~a)*scale3(~f)*unitsphere,green);" (coord s) r)
       ;; lines on surface of cone
       (dotimes (i rays)
-	(let* ((e (calc-e (* (/ +2*PI+ rays) i) x1 y1 hx hy s))
+	(let* ((e (calc-periphery-point (* (/ +2*PI+ rays) i) x1 y1 hx hy s))
 	       (f (.- c e))
 	       (hf (normalize f))
 	       (normal (v 0 0 1))

@@ -1,6 +1,7 @@
 (in-package :raytrace)
 
 (defun refract-plane (incident normal n1/n2)
+  ;; direct normal opposite of incident (like for a mirror)
   (declare (type vec incident normal)
 	   (type num n1/n2))
   (let* ((in (dot incident normal))
@@ -92,8 +93,9 @@
   ;; normal is directed towards sample (opposite i)
   "Propagate ray defined by start point p and direction i from sample
 through an objective defined by its focal length f, immersion index n
-the center position CENTER and orientation given by NORMAL. NORMAL is
-directed nearly opposite to i."
+the center position CENTER (the position where the gaussian sphere
+intersects the optical axis) and orientation given by NORMAL. NORMAL
+is directed nearly opposite to i."
   (declare (type vec p i normal center) 
 	   (type num n f))
   (let* ((gauss-center (.+ center (.s (* n f) normal)))
