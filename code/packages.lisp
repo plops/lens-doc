@@ -39,3 +39,12 @@
   (:export
    #:prepare-out-of-focus
    #:calc-e)) 
+
+(defpackage :plot-macros
+  (:use :cl :base)
+  (:export
+   #:with-asy
+   #:asy
+   #:coord
+   #:line
+   #:line-colored))

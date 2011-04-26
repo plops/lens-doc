@@ -1,35 +1,10 @@
 (require :raytrace)
 
 (defpackage :plot-tests
-  (:use :cl :base :raytrace :project))
+  (:use :cl :base :raytrace :project
+	:plot-macros))
 
 (in-package :plot-tests)
-
-(defmacro with-asy (fn &body body)
-  (let ((s (gensym)))
-    `(with-open-file (,s ,fn
-			 :direction :output
-			 :if-exists :supersede
-			 :if-does-not-exist :create)
-       (macrolet ((asy (str &rest rest)
-		    `(progn
-		       (format ,',s ,str ,@rest)
-		       (terpri ,',s))))
-	 (labels ((coord (v)
-		    (format nil "(~f,~f,~f)" (vx v) (vy v) (vz v)))
-		  (line (&rest vecs)
-		    (when (listp vecs)
-		      (format ,s "draw(~a" (coord (first vecs)))
-		      (dolist (v (cdr vecs))
-			(format ,s "--~a" (coord v)))
-		      (format ,s ");~%")))
-		  (line-colored (color &rest vecs)
-		    (when (listp vecs)
-		      (format ,s "draw(~a" (coord (first vecs)))
-		      (dolist (v (cdr vecs))
-			(format ,s "--~a" (coord v)))
-		      (format ,s ",~a);~%" color))))
-	   ,@body)))))
 
 (with-asy "/dev/shm/projection-test.asy"
   ;; draw rays starting from a billboard in the out-of-focus nucleus

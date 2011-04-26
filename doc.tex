@@ -64,6 +64,7 @@
 \def\abs#1{\mathopen| #1 \mathclose|}
 
 \newcommand{\bild}[1]{\includegraphics[width=7cm]{#1}}
+\newpage
 \section{Refraction}
 \subsection{Refraction at plane surface}
 \begin{align}
@@ -286,7 +287,7 @@ corresponds to two solutions.
    \caption{Construction that treats the interface between embedding
      and immersion medium}
  \end{figure}
-
+\newpage
 \section{Tracing from sample space into the back focal plane}
 \subsection{Unaberrated objective}
 A unit ray direction $\i=(x,y,z)^T$ in sample space is transformed
@@ -325,6 +326,7 @@ position on the back focal plane will depend on sample position.
      medium that has a different refractive index than the immersion
      oil.}
  \end{figure}
+\newpage
 \section{Nucleus projection}
 \begin{itemize}
 \item project each out of focus nucleus through each in-focus nucleus 
@@ -399,9 +401,6 @@ can be used as the center of the (distorted) shape on the back focal
 plane to render it as a fan of triangles.
 \newcommand{\figref}[1]{\figurename~\ref{#1}}
 
-\section{Ferroelectric liquid crystals}
-(See 1991Saleh p.~722 and Goodman 192)
-
 \section{Simple sketch of MEMI system}
 \begin{figure}[!hbt]
   \centering
@@ -473,15 +472,17 @@ plane to render it as a fan of triangles.
     positions. The tubelength for this simulation was
     \unit[160]{mm}. Note that rays the intersect the back focal plane
     at \unit[50]{mm} distance to the optical axis don't enter the
-    tubelens. Parameters:x the objective focal length is
+    tubelens. Parameters: the objective focal length is
     \unit[2.61]{mm}, the tubelength is \unit[160]{mm}, the immersion
     index is $n=1.52$ and the embedding index is $n_e=1.33$ }
   \label{fig:focus-displacement}
 \end{figure}
 \def\NA{\textrm{NA}}
+
+\newpage
 \section{Test}
 Set the target point $\c=(0,0,0)^T$ and the nucleus center to
-$\s=\unit[(6,0,7)^T]{n_e \mu m}$ with a nucleus radius
+$\s=\unit[(-6,0,-7)^T]{n_e \mu m}$ with a nucleus radius
 $r=\unit[1.2]{n_e \mu m}$. Note that dimensions are \emph{optical}
 path lengths and must be multiplied with the refractive index
 $n_e=1.33$. 
@@ -509,8 +510,13 @@ left of the objective center:
   &=\unit[3.9669]{mm}
 \end{align*}
 as opposed to $nf=\unit[3.9688]{mm}$ for an unabberated objective. The
-water layer shifts the focus by \unit[1.9]{$\mu$m} in the simulation
-coordinate system.
+water layer shifts the focus axially by \unit[1.9]{$\mu$m} in the
+simulation coordinate system.
+
+\newpage
+\section{Ferroelectric liquid crystals}
+(See 1991Saleh p.~722 and Goodman 192)
+
 
 \end{document}
 
