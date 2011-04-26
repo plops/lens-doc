@@ -165,7 +165,7 @@
         <path
            id="path4514"
            transform="matrix(0,-1.109517,1.109517,0,25.96648,19.71619)"
-           d="m 16.779951,-28.685045 a 0.60731727,0.60731727 0 1 1 -1.214634,0 0.60731727,0.60731727 0 1 1 1.214634,0 z"
+           d="m 16.779951,-28.685045 c 0,0.335412 -0.271905,0.607317 -0.607317,0.607317 -0.335412,0 -0.607317,-0.271905 -0.607317,-0.607317 0,-0.335412 0.271905,-0.607318 0.607317,-0.607318 0.335412,0 0.607317,0.271906 0.607317,0.607318 z"
            sodipodi:ry="0.60731727"
            sodipodi:rx="0.60731727"
            sodipodi:cy="-28.685045"
@@ -175,7 +175,7 @@
         <path
            id="path4516"
            transform="matrix(0,-1.109517,1.109517,0,26.8245,16.99126)"
-           d="m 16.779951,-28.685045 a 0.60731727,0.60731727 0 1 1 -1.214634,0 0.60731727,0.60731727 0 1 1 1.214634,0 z"
+           d="m 16.779951,-28.685045 c 0,0.335412 -0.271905,0.607317 -0.607317,0.607317 -0.335412,0 -0.607317,-0.271905 -0.607317,-0.607317 0,-0.335412 0.271905,-0.607318 0.607317,-0.607318 0.335412,0 0.607317,0.271906 0.607317,0.607318 z"
            sodipodi:ry="0.60731727"
            sodipodi:rx="0.60731727"
            sodipodi:cy="-28.685045"
@@ -236,6 +236,58 @@
            id="path2314-3" />
       </g>
     </marker>
+    <marker
+       style="overflow:visible"
+       id="DistanceStart-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="DistanceStart">
+      <g
+         id="g2300-7">
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.14999998;stroke-linecap:square"
+           d="M 0,0 2,0"
+           id="path2306-8"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:none"
+           d="M 0,0 13,4 9,0 13,-4 0,0 z"
+           id="path2302-4"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:square"
+           d="M 0,-4 0,40"
+           id="path2304-5"
+           inkscape:connector-curvature="0" />
+      </g>
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="DistanceEnd-0"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="DistanceEnd">
+      <g
+         id="g4345-3">
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.14999998;stroke-linecap:square"
+           d="M 0,0 -2,0"
+           id="path2316-6"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:none"
+           d="M 0,0 -13,4 -9,0 -13,-4 0,0 z"
+           id="path2312-1"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:square"
+           d="M 0,-4 0,40"
+           id="path2314-0"
+           inkscape:connector-curvature="0" />
+      </g>
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -244,9 +296,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="81.162188"
-     inkscape:cy="74.769964"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="83.848033"
+     inkscape:cy="111.89307"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -257,8 +309,8 @@
      fit-margin-bottom="0"
      inkscape:window-width="1364"
      inkscape:window-height="751"
-     inkscape:window-x="0"
-     inkscape:window-y="15"
+     inkscape:window-x="7"
+     inkscape:window-y="-6"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -344,7 +396,7 @@
        sodipodi:open="true" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 126.00783,914.32442 0,35.40474"
+       d="m 126.00783,914.32445 0,37.14823"
        id="path3785-7"
        inkscape:connector-curvature="0" />
     <text
@@ -410,15 +462,15 @@
     <text
        xml:space="preserve"
        style="font-size:10.26190472px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="92.208542"
-       y="893.0658"
+       x="104.70951"
+       y="985.20154"
        id="text3837"
        sodipodi:linespacing="125%"
        transform="scale(0.9999226,1.0000774)"><tspan
          sodipodi:role="line"
          id="tspan3839"
-         x="92.208542"
-         y="893.0658">gaussian sphere</tspan></text>
+         x="104.70951"
+         y="985.20154">gaussian sphere</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="M 33.888286,941.4057 26.76215,921.96778"
@@ -431,7 +483,7 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 87.010378,892.81096 -8.421795,5.83138"
+       d="m 104.51038,979.71094 -10.207509,-8.6829"
        id="path3845"
        inkscape:connector-curvature="0" />
     <path
@@ -469,13 +521,13 @@
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
-       x="57.740929"
+       x="55.740929"
        y="903.82623"
        id="text3916"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3918"
-         x="57.740929"
+         x="55.740929"
          y="903.82623">$n$</tspan></text>
     <text
        xml:space="preserve"
@@ -498,5 +550,23 @@
        d="m 96.97669,958.88333 -59.110134,0"
        id="path4943-2"
        inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.39999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#DistanceStart);marker-end:url(#DistanceEnd)"
+       d="m 78.38969,888.5127 0,59.99131"
+       id="path4943-2-6"
+       inkscape:connector-curvature="0"
+       inkscape:transform-center-x="-32.401695"
+       inkscape:transform-center-y="-5.7996081" />
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="67.618454"
+       y="923.19781"
+       id="text4009"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4011"
+         x="67.618454"
+         y="923.19781">$R$</tspan></text>
   </g>
 </svg>
