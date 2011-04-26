@@ -30,53 +30,51 @@
   (with-asy "/dev/shm/projection-test.asy"
     (asy "import three;")
     (asy "size(100000,100000);")
-    #+nil (asy "currentprojection=perspective(
+    (asy "currentprojection=perspective(
 camera=(0,15,0),up=(0,0,1),target=~a,
 zoom=1,angle=0,autoadjust=false);" (coord (v 0 0 (- d))))
-    (asy "currentprojection=orthographic(
+    #+nil     (asy "currentprojection=orthographic(
 camera=(0,10000,0),up=(0,0,1),target=~a,showtarget=false,center=true);" 
 	 (coord (v 0 0 (- d))))
 
     (line (v 0 0 -4) (v 0 0 10)) ; optical axis
     (line (v rbfp 0 f) (v 0 0 f)) ; bfp
     (asy "draw(circle(~a,~a));" (coord (v 0 0 f)) rbfp) ; bfp round
-    (let* ((z (- rbfp (* n f)))
-	  (gauss-center (v 0 0 (* n f -1)))
-	  (gauss-periphery (v 0 0 z))) ; gaussian sphere
-     (asy "draw(arc(~a,~a,~a));"
-	  (coord gauss-center)
-	  (coord (v (- rbfp) 0 z))
-	  (coord (v rbfp 0 z)))
-     (asy "draw(circle(~a,~a));" (coord gauss-periphery) rbfp))
+    (let* ((gauss-center (v 0 0 (* n f -1)))
+	   (alpha (* (/ 180 +pi+) (asin (/ na n))))
+	   (gauss-periphery (v 0 0 (- rbfp (* n f))))) ; transmissive part of gaussian sphere
+      (asy "draw(arc(~a,~a,~a,0,~a,0),red+linewidth(300));"
+	   (coord gauss-center) (* n f) (- alpha) alpha)
+      (asy "draw(circle(~a,~a,(0,1,0)));" (coord gauss-center) (* n f)))
     (line (v 0 0 (- d)) (v 1 0 (- d))) ; aberrated focus
     (line (v 0 0 slip-z) (v 1 0 slip-z)) ; coverslip
     (let ((dz (v 0 0 (- d)))
 	  (normal (v 0 1 0)))
-     (asy "draw(circle(~a,~a,~a));" ;; out-of-focus
-	  (coord (.+ s dz)) 
-	  r 
-	  (coord normal))
-     (asy "draw(circle(~a,~a,~a));" ;; target
-	  (coord (.+ c dz)) 
-	  r 
-	  (coord normal))
-     (let ((c (.+ dz c))
-	   (s (.+ dz s)))
-      (multiple-value-bind (x1 y1 hx hy) ;; billboard
-	  (prepare-out-of-focus c s :r r)
-	(let ((rays 9))
-	  (dotimes (i rays)
-	    (let* ((per (calc-periphery-point (* (/ +2*pi+ rays) i)
-					      ;; point on out of focus nucleus
-					    x1 y1 hx hy s))
-		   (hf (normalize (.- c per)))) ;; direction on cone
-	      (multiple-value-bind (dir! start! f!) ;; corrected positions
-		  (aberrate-index-plane c hf slip-center slip-normal (/ ne n))
-		(multiple-value-bind (r e) 
-		    (refract-objective-detection start! dir!
-						 n f obj-center obj-normal)
-		  #+nil(line start!
-			     (.+ start! (.s 2s0 dir!)))
-		  (let ((bfp (intersect-plane e r bfp-center bfp-normal))) 
-		    (line per f! e bfp))))
-	      ))))))))
+      (asy "draw(circle(~a,~a,~a));" ;; out-of-focus
+	   (coord (.+ s dz)) 
+	   r 
+	   (coord normal))
+      (asy "draw(circle(~a,~a,~a));" ;; target
+	   (coord (.+ c dz)) 
+	   r 
+	   (coord normal))
+      (let ((c (.+ dz c))
+	    (s (.+ dz s)))
+	(multiple-value-bind (x1 y1 hx hy) ;; billboard
+	    (prepare-out-of-focus c s :r r)
+	  (let ((rays 9))
+	    (dotimes (i rays)
+	      (let* ((per (calc-periphery-point (* (/ +2*pi+ rays) i)
+						;; point on out of focus nucleus
+						x1 y1 hx hy s))
+		     (hf (normalize (.- c per)))) ;; direction on cone
+		(multiple-value-bind (dir! start! f!) ;; corrected positions
+		    (aberrate-index-plane c hf slip-center slip-normal (/ ne n))
+		  (multiple-value-bind (r e) 
+		      (refract-objective-detection start! dir!
+						   n f obj-center obj-normal)
+		    #+nil(line start!
+			       (.+ start! (.s 2s0 dir!)))
+		    (let ((bfp (intersect-plane e r bfp-center bfp-normal))) 
+		      (line per f! e bfp))))
+		))))))))
