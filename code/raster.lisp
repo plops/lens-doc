@@ -1,13 +1,16 @@
 (in-package :raster)
 
+(deftype accum-type ()
+  `(unsigned-byte 64))
+
 (deftype bfp-type ()
-  `(simple-array (unsigned-byte 64) 2))
+  `(simple-array accum-type 2))
 
 (declaim (inline draw-point))
 (defun draw-point (img j i val)
   (declare (type bfp-type img)
 	   (type fixcoord j i)
-	   (type (unsigned-byte 64) val))
+	   (type accum-type val))
   (destructuring-bind (h w) (array-dimensions img)
     (declare (type fixnum w h))
     (when (and (<= 0 i (1- w))
@@ -18,7 +21,7 @@
   ;; wikipedia Bresenham's_line_algorithm
   (declare (type fixnum y x y1 x1)
 	   (type bfp-type img)
-	   (type (unsigned-byte 8) val))
+	   (type accum-type val))
   (let* ((dx (abs (- x1 x)))
 	 (dy (abs (- y1 y)))
 	 (sx (if (< x x1) 1 -1))
@@ -43,7 +46,7 @@
   ;; wikipedia Midpoint_circle_algorithm
   (declare (type bfp-type img) 
 	   (type fixnum x0 y0 r)
-	   (type (unsigned-byte 64) val))
+	   (type accum-type val))
   (let ((f (- 1 r))
 	(dx 1)
 	(dy (* -2 r))
@@ -73,7 +76,8 @@
   (the bfp-type img))
 
 (defun raster-disk (img y0 x0 r &optional (val 255))
-  (declare (type bfp-type img) (type (unsigned-byte 64) val) 
+  (declare (type bfp-type img)
+	   (type accum-type val) 
 	   (type fixnum x0 y0 r))
   (let ((f (- 1 r))
 	(dx 1)
@@ -149,14 +153,16 @@
 (declaim (inline draw-span))
 (defun draw-span (img y x1 x2 val)
   (declare (type fixcoord y x1 x2)
-	   (type bfp-type img) (type (unsigned-byte 64) val) )
+	   (type bfp-type img)
+	   (type accum-type val) )
   (loop for x from (1+ x1) upto x2 do 
        (draw-point img y x val)))
 
 ;; triangles must be sorted y0 <= y1 <= y2
 (defun sorted-triangle (img y0 x0 y1 x1 y2 x2 val)
   (declare (type fixcoord y0 x0 y1 x1 y2 x2)
-	   (type bfp-type img) (type (unsigned-byte 64) val) )
+	   (type bfp-type img)
+	   (type accum-type val) )
   (let* ((handedness (- (* (- y1 y0)
 			   (- x2 x0))
 			(* (- x1 x0)
@@ -182,7 +188,8 @@
 
 (defun raster-triangle (img y0 x0 y1 x1 y2 x2 &optional (val 255))
   (declare (type fixcoord y0 x0 y1 x1 y2 x2)
-	   (type bfp-type img) (type (unsigned-byte 64) val))
+	   (type bfp-type img) 
+	   (type accum-type val))
   (when (< y1 y0)
     (rotatef y0 y1)
     (rotatef x0 x1))
@@ -196,13 +203,12 @@
 
 
 #+nil
-(let ((m (make-array (list 300 300)
-		     :element-type '(unsigned-byte 8))))
-  (dotimes (i 30)
-   (raster-circle m 150 150 (* 3 i)))
-  (raster-line m 12 13 150 190)
-  (raster-disk m 200 200 40)
-  (raster-triangle m 10 10 30 30 300 400)
-  (raster-triangle m 12 20 30 40 60 12)
-  (rayt::write-pgm "/dev/shm/o.pgm" m))
+(let ((m (make-array (list 30 30)
+		     :element-type '(unsigned-byte 64))))
+  ;(dotimes (i 3) (raster-circle m 150 150 (* 3 i) 1))
+  ;(raster-line m 12 13 150 190 1)
+  ;(raster-disk m 20 200 40 1)
+  ;(raster-triangle m 10 10 30 30 300 400 1)
+  (raster-triangle m 1 20 10 3 23 12 1)
+  (format t "~a~%" m))
 

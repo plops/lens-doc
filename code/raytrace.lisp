@@ -146,7 +146,7 @@ orientation by NORMAL. START can be on either side of the lens."
 	   (type num f))
   (let* ((lens-hit (intersect-plane start i center normal))
 	 (rho (.- lens-hit center))
-	 (cos-theta (dot i normal)) ;; FIXME does it matter if normal is inverted?
+	 (cos-theta (dot i normal)) ;; orientation of normal does matter !
 	 (r (.- (.s (/ f cos-theta) i)
 		rho)))
     (values (normalize r) lens-hit)))
