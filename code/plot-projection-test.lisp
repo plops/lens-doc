@@ -103,8 +103,11 @@ camera=(0,1000000,0),up=(0,0,1),target=~a,showtarget=true,center=false);"
 (project-through-aberrated-microscope)
 
 ;; same code as above, but no plot output. just an array of positions
-;; out-of-focus target coverslip gauss-sphere bfp tubelens camera
-
+;; 1) out-of-focus target coverslip behind-slip   0 1 2 3
+;; 2) gauss-sphere bfp                            0 1 2 3 4 5
+;; tubelens 
+;; 3) infront-cam camera behind-cam               7 8 9
+;; 4) everything but behind-cam                   0..9
 
 (defun project-through-aberrated-microscope (&key (ne 1.33) (c (.s ne (v)))
 					     (s (.s ne (v -5e-3 0 -7e-3)))
@@ -125,6 +128,7 @@ medium. All dimensions in mm (if embedded multiply with ne)."
 	       (* n (- f h))))
 	 (slip-z (* -1 n (- f h)))
 	 (slip-center (v 0 0 slip-z))
+	 (slip-behind (v 0 0 (* -1 n (- f .05)))) ;; for plotting part of the ray in glass
 	 (slip-normal (v 0 0 -1))
 	 (obj-center (v))
 	 (obj-normal (v 0 0 -1))
@@ -132,38 +136,104 @@ medium. All dimensions in mm (if embedded multiply with ne)."
 	 (bfp-normal obj-normal)
 	 (tube-center (v 0 0 (+ f ftl)))
 	 (tube-normal (v 0 0 1))
+	 (dz-cam 1e0)
+	 (camera-infront (v 0 0 (+ f ftl ftl (- dz-cam)))) ;; for plotting rays around cam
 	 (camera-center (v 0 0 (+ f ftl ftl)))
+	 (camera-behind (v 0 0 (+ f ftl ftl (+ dz-cam))))  ;; for plotting rays around cam
 	 (camera-normal obj-normal)
 	 (field .04)
 	 (field-cam (* mag field))
-	 (result (make-array (list rays 7) :element-type 'vec))
+	 (result (make-array (list rays 10) :element-type 'vec))
 	 (dz (v 0 0 (- d)))
 	 (c (.+ dz c))
 	 (s (.+ dz s)))
     (multiple-value-bind (x1 y1 hx hy) ;; billboard
 	(prepare-out-of-focus c s :r r)
       (dotimes (i rays)
-	(setf (aref result i 0) c) ;; target
 	(let* ((per (calc-periphery-point (* (/ +2*pi+ rays) i)
 					  ;; point on out-of-focus nucleus
 					  x1 y1 hx hy s))
 	       (hf (normalize (.- c per)))) ;; direction on cone
-	  (setf (aref result i 1) per) ;; point on out-of-focus nucleus
+	  (setf (aref result i 0) per) ;; point on out-of-focus nucleus
+	  (setf (aref result i 1) c) ;; target
 	  (multiple-value-bind (dir! start! f!) ;; corrected positions
 	      (aberrate-index-plane c hf slip-center slip-normal (/ ne n))
-	    (setf (aref result i 2) f!) ;; intersection with coverslip
+	    (setf (aref result i 2) f!  ;; intersection with coverslip
+		  (aref result i 3) ;; intersection somewhere in immersion, for plotting 
+		  (intersect-plane start! dir! slip-behind slip-normal))
 	    (multiple-value-bind (r e) 
 		(refract-objective-detection start! dir!
 					     n f obj-center obj-normal)
-	      (setf (aref result i 3) e ;; intersection with gauss-sphere
-		    (aref result i 4) ;; intersection with bfp 
+	      (setf (aref result i 4) e ;; intersection with gauss-sphere
+		    (aref result i 5) ;; intersection with bfp 
 		    (intersect-plane e r bfp-center bfp-normal))
 	      (multiple-value-bind (rr ee) (refract-thin-lens e r ftl
 							      tube-center tube-normal)
-		(setf (aref result i 5) ee ;; intersection with tubelens
-		      (aref result i 6) ;; intersection with camera
-		      (intersect-plane ee rr camera-center camera-normal)))))))
+		(setf (aref result i 6) ee ;; intersection with tubelens
+		      (aref result i 7) ;; for plotting
+		      (intersect-plane ee rr camera-infront camera-normal)
+		      (aref result i 8) ;; intersection with camera
+		      (intersect-plane ee rr camera-center camera-normal)
+		      (aref result i 9) ;; for plotting
+		      (intersect-plane ee rr camera-behind camera-normal)))))))
       result)))
 #+nil
-(format t "~a~%"
- (project-through-aberrated-microscope :rays 3))
+(format t "~a~%"  (project-through-aberrated-microscope :rays 1))
+
+
+(defun plot-rays-around-focus (fn ray-arrays)
+  (declare (type (simple-array vec 2) ray-arrays)
+	   (type string fn))
+  (with-asy fn
+    (asy "import three;")
+    (asy "size(1000,1000);")
+    (asy "currentprojection=orthographic(
+camera=(0,1000000,0),up=(0,0,1),target=~a,showtarget=true,center=false);" 
+	 (coord (aref ray-arrays 0 1)))
+    (let ((rays (array-dimension ray-arrays 0)))
+      (dotimes (i rays)
+	(macrolet ((r (point-index)
+		      `(aref ray-arrays i ,point-index)))
+	  (line (r 0) (r 1) (r 2) (r 3)))))))
+
+#+nil 
+(plot-rays-around-focus "/dev/shm/focus.asy"
+ (project-through-aberrated-microscope :rays 13))
+
+(defun plot-rays-around-camera (fn ray-arrays)
+  (declare (type (simple-array vec 2) ray-arrays)
+	   (type string fn))
+  (with-asy fn
+    (asy "import three;")
+    (asy "size(1000,1000);")
+    (asy "currentprojection=orthographic(
+camera=(0,1000000,0),up=(0,0,1),target=~a,showtarget=true,center=false);" 
+	 (coord (aref ray-arrays 0 8)))
+    (let ((rays (array-dimension ray-arrays 0)))
+      (dotimes (i rays)
+	(macrolet ((r (point-index)
+		      `(aref ray-arrays i ,point-index)))
+	  (line (r 7) (r 8) (r 9)))))))
+
+#+nil
+(plot-rays-around-camera "/dev/shm/camera.asy"
+ (project-through-aberrated-microscope :rays 13))
+
+(defun plot-rays-to-bfp (fn ray-arrays)
+  (declare (type (simple-array vec 2) ray-arrays)
+	   (type string fn))
+  (with-asy fn
+    (asy "import three;")
+    (asy "size(1000,1000);")
+    (asy "currentprojection=orthographic(
+camera=(0,10,0),up=(0,0,1),target=~a,showtarget=true,center=false);" 
+	 (coord (aref ray-arrays 0 4)))
+    (let ((rays (array-dimension ray-arrays 0)))
+      (dotimes (i rays)
+	(macrolet ((r (point-index)
+		      `(aref ray-arrays i ,point-index)))
+	  (line (r 3) (r 4) (r 5)))))))
+
+#+nil
+(plot-rays-to-bfp "/dev/shm/bfp.asy"
+ (project-through-aberrated-microscope :rays 13))
