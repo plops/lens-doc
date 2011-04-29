@@ -155,7 +155,7 @@ medium. All dimensions in mm (if embedded multiply with ne)."
 	       (* n (- f h))))
 	 (slip-z (* -1 n (- f h)))
 	 (slip-center (v 0 0 slip-z))
-	 (slip-behind (v 0 0 (* -1 n (- f .05)))) ;; for plotting part of the ray in glass
+	 (slip-behind (v 0 0 (* -1 n (- f .06)))) ;; for plotting part of the ray in glass
 	 (slip-normal (v 0 0 -1))
 	 (obj-center (v))
 	 (obj-normal (v 0 0 -1))
@@ -213,7 +213,7 @@ medium. All dimensions in mm (if embedded multiply with ne)."
 	   (type string fn))
   (with-asy fn
     (asy "import three;")
-    (asy "size(1000,1000);")
+    (asy "size(200,200);")
     
     (multiple-value-bind (foc d slip obj bfp tl cam field alpha rbfp field-cam)
 	(important-positions-aberrated-microscope :ne ne :h h)
@@ -225,7 +225,7 @@ camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
       (line (v field 0 d) (v (- field) 0 d)) ;; aberrated focus
       (line (v 0 0 (vz (aref ray-arrays 0 3))) ;; somewhere in immersion
 	    (v 0 0 (- d .005))) ;; 5 um down
-      (line (v (* 3 field) 0 slip) (v 0 0 slip))) ;; coverslip
+      (line (v (* 2 field) 0 slip) (v 0 0 slip))) ;; coverslip
     (let ((rays (array-dimension ray-arrays 0)))
       (dotimes (i rays)
 	(macrolet ((r (point-index)
@@ -241,7 +241,7 @@ camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
 	   (type string fn))
   (with-asy fn
     (asy "import three;")
-    (asy "size(1000,1000);")
+    (asy "size(200,200);")
     (multiple-value-bind (foc d slip obj bfp tl cam field alpha rbfp field-cam)
 	(important-positions-aberrated-microscope :ne ne :h h)
       (asy "currentprojection=orthographic(
@@ -269,7 +269,7 @@ camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
 	   (type string fn))
   (with-asy fn
     (asy "import three;")
-    (asy "size(1000,1000);")
+    (asy "size(200,200);")
     (multiple-value-bind (foc d slip obj bfp tl cam field alpha rbfp field-cam)
 	(important-positions-aberrated-microscope :ne ne :h h)
       (asy "currentprojection=orthographic(
@@ -315,36 +315,37 @@ camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
     (format s "\\documentclass[DIV19]{scrartcl}
 \\usepackage{graphicx}
 \\usepackage{subfigure}
+\\usepackage[paper size={200mm, 120mm},left=2mm,right=2mm,top=2mm,bottom=2mm,nohead]{geometry}
 \\begin{document}
 \\begin{figure}
 \\centering
-\\subfigure[Focus.]{\\includegraphics[height=4cm]{foc-1}}\\qquad
-\\subfigure[BFP.]{\\includegraphics[height=4cm]{bfp-1}}\\
-\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics[width=10cm]{cam-1}}
+\\subfigure[BFP.]{\\includegraphics{bfp-1}}\\qquad
+\\subfigure[Focus.]{\\includegraphics{foc-1}}\\\\
+\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics{cam-1}}
 \\caption{water depth 1.0}
 \\label{fig:graph}
 \\end{figure}
 \\begin{figure}
 \\centering
-\\subfigure[Focus.]{\\includegraphics[height=4cm]{foc-10}}\\qquad
-\\subfigure[BFP.]{\\includegraphics[height=4cm]{bfp-10}}\\
-\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics[width=10cm]{cam-10}}
+\\subfigure[BFP.]{\\includegraphics{bfp-10}}\\qquad
+\\subfigure[Focus.]{\\includegraphics{foc-10}}\\\\
+\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics{cam-10}}
 \\caption{water depth 10.0}
 \\label{fig:graph}
 \\end{figure}
 \\begin{figure}
 \\centering
-\\subfigure[Focus.]{\\includegraphics[height=4cm]{foc-30}}\\qquad
-\\subfigure[BFP.]{\\includegraphics[height=4cm]{bfp-30}}\\
-\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics[width=10cm]{cam-30}}
+\\subfigure[BFP.]{\\includegraphics{bfp-30}}\\qquad
+\\subfigure[Focus.]{\\includegraphics{foc-30}}\\\\
+\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics{cam-30}}
 \\caption{water depth 30.0}
 \\label{fig:graph}
 \\end{figure}
 \\begin{figure}
 \\centering
-\\subfigure[Focus.]{\\includegraphics[height=4cm]{foc-50}}\\qquad
-\\subfigure[BFP.]{\\includegraphics[height=4cm]{bfp-50}}\\
-\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics[width=10cm]{cam-50}}
+\\subfigure[BFP.]{\\includegraphics{bfp-50}}\\qquad
+\\subfigure[Focus.]{\\includegraphics{foc-50}}\\\\
+\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics{cam-50}}
 \\caption{water depth 50.0}
 \\label{fig:graph}
 \\end{figure}
