@@ -163,7 +163,7 @@ medium. All dimensions in mm (if embedded multiply with ne)."
 	 (bfp-normal obj-normal)
 	 (tube-center (v 0 0 (+ f ftl)))
 	 (tube-normal (v 0 0 1))
-	 (dz-cam 1e0)
+	 (dz-cam .2e0)
 	 (camera-infront (v 0 0 (+ f ftl ftl (- dz-cam)))) ;; for plotting rays around cam
 	 (camera-center (v 0 0 (+ f ftl ftl)))
 	 (camera-behind (v 0 0 (+ f ftl ftl (+ dz-cam))))  ;; for plotting rays around cam
@@ -221,8 +221,10 @@ medium. All dimensions in mm (if embedded multiply with ne)."
 camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
 	   (coord (v 0 100 d)) ;; move camera to aberrated focus
 	   (coord (v 0 0 d))) 
-      (line (v field 0 foc) (v 0 0 foc)) ;; unaberrated focus
-      (line (v field 0 d) (v 0 0 d)) ;; aberrated focus
+      (line (v field 0 foc) (v (- field) 0 foc)) ;; unaberrated focus
+      (line (v field 0 d) (v (- field) 0 d)) ;; aberrated focus
+      (line (v 0 0 (vz (aref ray-arrays 0 3))) ;; somewhere in immersion
+	    (v 0 0 (- d .005))) ;; 5 um down
       (line (v (* 3 field) 0 slip) (v 0 0 slip))) ;; coverslip
     (let ((rays (array-dimension ray-arrays 0)))
       (dotimes (i rays)
@@ -246,7 +248,11 @@ camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
 camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
 	   (coord (v 0 100 cam)) ;; move camera to intersection with camera
 	   (coord (v 0 0 cam))) 
-      (line (v (- field-cam) 0 cam) (v 0 0 cam)))
+      (line (v (- field-cam) 0 cam) (v field-cam 0 cam)) ;; camera
+      (line (v 0 0 cam) (v 0 0 (- cam .5)) ;; .5mm optical axis
+	    )
+      (circle (v 0 0 cam) field-cam (v 0 0 1)) ;; circle in camera plane
+      )
     (let ((rays (array-dimension ray-arrays 0)))
       (dotimes (i rays)
 	(macrolet ((r (point-index)
@@ -254,7 +260,7 @@ camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
 	  (line (r 7) (r 8) (r 9)))))))
 
 #+nil
-(plot-rays-around-camera "/dev/shm/camera.asy"
+(plot-rays-around-camera "/dev/shm/cam.asy"
  (project-through-aberrated-microscope :rays 13))
 
 ;; I need some better way to represent the objective state (maybe defclass?)
@@ -270,12 +276,14 @@ camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
 camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
 	   (coord (v 0 100 bfp)) ;; move camera to bfp
 	   (coord (v 0 0 bfp))) 
-      (line (v field 0 d) (v 0 0 d)) ;; aberrated focus
-      ;(circle (v 0 0 foc) (* 1.52 (/ 164.5 63)) (v 0 1 0)) 
+      (line (v field 0 d) (v (- field) 0 d)) ;; aberrated focus
+      (circle (v 0 0 d) field (v 0 0 1)) ;; circle in focus
       (arc (v 0 0 foc) (* 1.52 (/ 164.5 63)) ;; gauss sphere, FIXME parameters variable!
 	   :theta1 (- alpha) :normal (v 0 1 0))
-      (line (v rbfp 0 bfp) (v 0 0 bfp) ;; bfp
-      )
+      (line (v rbfp 0 bfp) (v (- rbfp) 0 bfp) ;; bfp
+	    )
+      (line (v 0 0 bfp) (v 0 0 d)) ;; optical axis
+      (circle (v 0 0 bfp) rbfp (v 0 0 1)) ;; circle in bfp
       )
     (let ((rays (array-dimension ray-arrays 0)))
       (dotimes (i rays)
@@ -286,3 +294,66 @@ camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
 #+nil
 (plot-rays-to-bfp "/dev/shm/bfp.asy"
  (project-through-aberrated-microscope :rays 13))
+
+(defun plot-h (&key (dir "/dev/shm/") (h 10e0) (rays 32))
+  (let* ((th (truncate h))
+	 (hh (/ h 1000))
+	 (p (project-through-aberrated-microscope :rays rays :h hh)))
+    (plot-rays-around-focus (format nil "~afoc-~a.asy" dir th) p :h hh)
+    (plot-rays-around-camera (format nil "~acam-~a.asy" dir th) p :h hh)
+    (plot-rays-to-bfp (format nil "~abfp-~a.asy" dir th) p :h hh)))
+
+#+nil
+(progn
+  (plot-h :h 1e0)
+  (plot-h :h 10e0)
+  (plot-h :h 30e0)
+  (plot-h :h 50e0)
+  (with-open-file (s "/dev/shm/test.tex" :direction :output
+		     :if-exists :supersede
+		     :if-does-not-exist :create)
+    (format s "\\documentclass[DIV19]{scrartcl}
+\\usepackage{graphicx}
+\\usepackage{subfigure}
+\\begin{document}
+\\begin{figure}
+\\centering
+\\subfigure[Focus.]{\\includegraphics[height=4cm]{foc-1}}\\qquad
+\\subfigure[BFP.]{\\includegraphics[height=4cm]{bfp-1}}\\
+\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics[width=10cm]{cam-1}}
+\\caption{water depth 1.0}
+\\label{fig:graph}
+\\end{figure}
+\\begin{figure}
+\\centering
+\\subfigure[Focus.]{\\includegraphics[height=4cm]{foc-10}}\\qquad
+\\subfigure[BFP.]{\\includegraphics[height=4cm]{bfp-10}}\\
+\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics[width=10cm]{cam-10}}
+\\caption{water depth 10.0}
+\\label{fig:graph}
+\\end{figure}
+\\begin{figure}
+\\centering
+\\subfigure[Focus.]{\\includegraphics[height=4cm]{foc-30}}\\qquad
+\\subfigure[BFP.]{\\includegraphics[height=4cm]{bfp-30}}\\
+\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics[width=10cm]{cam-30}}
+\\caption{water depth 30.0}
+\\label{fig:graph}
+\\end{figure}
+\\begin{figure}
+\\centering
+\\subfigure[Focus.]{\\includegraphics[height=4cm]{foc-50}}\\qquad
+\\subfigure[BFP.]{\\includegraphics[height=4cm]{bfp-50}}\\
+\\subfigure[Camera.]{\\label{fig:graph-c}\\includegraphics[width=10cm]{cam-50}}
+\\caption{water depth 50.0}
+\\label{fig:graph}
+\\end{figure}
+\\end{document}"))
+  (with-open-file (s "/dev/shm/mkpic.sh" :direction :output
+		     :if-exists :supersede
+		     :if-does-not-exist :create)
+    (format s "cd /dev/shm
+for i in *.asy ; do asy -render 0 -f pdf -noprc $i;done
+pdflatex test"))
+  (sb-ext:run-program "/bin/bash" '("/dev/shm/mkpic.sh"))
+  )
