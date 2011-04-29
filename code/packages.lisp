@@ -48,4 +48,6 @@
    #:asy
    #:coord
    #:line
-   #:line-colored))
+   #:line-colored
+   #:circle
+   #:arc))

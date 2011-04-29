@@ -102,6 +102,33 @@ camera=(0,1000000,0),up=(0,0,1),target=~a,showtarget=true,center=false);"
 #+nil
 (project-through-aberrated-microscope)
 
+
+(defun important-positions-aberrated-microscope (&key (ne 1.33) (h .01))
+  "Return unaberrated-focus aberrated-focus water-coverslip obj bfp tl
+cam field alpha rbfp field-cam"
+  (declare (type num ne h))
+  (let* ((n 1.52) ;; immersion index
+	 (ftl 164.5) ;; focal length tubelens, 
+	 (mag 63.0) ;; magnification
+	 (na 1.38) ;; numerical aperture
+	 (f (/ ftl mag))
+	 (foc (* -1 n f))
+	 (rbfp (* f na))
+	 (d (- (+ (* ne h)		; position of aberrated focus
+		(* n (- f h)))))
+	 (slip (* -1 n (- f h)))
+	 (obj 0e0)
+	 (bfp f)
+	 (tl (+ f ftl))
+	 (cam (+ f ftl ftl))
+	 (alpha (asin (/ na n)))
+	 (field .04)
+	 (field-cam (* mag field)))
+    (values foc d slip obj bfp tl cam field alpha rbfp field-cam)))
+
+#+nil
+(important-positions-aberrated-microscope)
+
 ;; same code as above, but no plot output. just an array of positions
 ;; 1) out-of-focus target coverslip behind-slip   0 1 2 3
 ;; 2) gauss-sphere bfp                            0 1 2 3 4 5
@@ -181,15 +208,22 @@ medium. All dimensions in mm (if embedded multiply with ne)."
 (format t "~a~%"  (project-through-aberrated-microscope :rays 1))
 
 
-(defun plot-rays-around-focus (fn ray-arrays)
+(defun plot-rays-around-focus (fn ray-arrays &key (ne 1.33) (h .01))
   (declare (type (simple-array vec 2) ray-arrays)
 	   (type string fn))
   (with-asy fn
     (asy "import three;")
     (asy "size(1000,1000);")
-    (asy "currentprojection=orthographic(
-camera=(0,1000000,0),up=(0,0,1),target=~a,showtarget=true,center=false);" 
-	 (coord (aref ray-arrays 0 1)))
+    
+    (multiple-value-bind (foc d slip obj bfp tl cam field alpha rbfp field-cam)
+	(important-positions-aberrated-microscope :ne ne :h h)
+      (asy "currentprojection=orthographic(
+camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
+	   (coord (v 0 100 d)) ;; move camera to aberrated focus
+	   (coord (v 0 0 d))) 
+      (line (v field 0 foc) (v 0 0 foc)) ;; unaberrated focus
+      (line (v field 0 d) (v 0 0 d)) ;; aberrated focus
+      (line (v (* 3 field) 0 slip) (v 0 0 slip))) ;; coverslip
     (let ((rays (array-dimension ray-arrays 0)))
       (dotimes (i rays)
 	(macrolet ((r (point-index)
@@ -200,15 +234,19 @@ camera=(0,1000000,0),up=(0,0,1),target=~a,showtarget=true,center=false);"
 (plot-rays-around-focus "/dev/shm/focus.asy"
  (project-through-aberrated-microscope :rays 13))
 
-(defun plot-rays-around-camera (fn ray-arrays)
+(defun plot-rays-around-camera (fn ray-arrays &key (ne 1.33) (h .01))
   (declare (type (simple-array vec 2) ray-arrays)
 	   (type string fn))
   (with-asy fn
     (asy "import three;")
     (asy "size(1000,1000);")
-    (asy "currentprojection=orthographic(
-camera=(0,1000000,0),up=(0,0,1),target=~a,showtarget=true,center=false);" 
-	 (coord (aref ray-arrays 0 8)))
+    (multiple-value-bind (foc d slip obj bfp tl cam field alpha rbfp field-cam)
+	(important-positions-aberrated-microscope :ne ne :h h)
+      (asy "currentprojection=orthographic(
+camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
+	   (coord (v 0 100 cam)) ;; move camera to intersection with camera
+	   (coord (v 0 0 cam))) 
+      (line (v (- field-cam) 0 cam) (v 0 0 cam)))
     (let ((rays (array-dimension ray-arrays 0)))
       (dotimes (i rays)
 	(macrolet ((r (point-index)
@@ -219,15 +257,26 @@ camera=(0,1000000,0),up=(0,0,1),target=~a,showtarget=true,center=false);"
 (plot-rays-around-camera "/dev/shm/camera.asy"
  (project-through-aberrated-microscope :rays 13))
 
-(defun plot-rays-to-bfp (fn ray-arrays)
+;; I need some better way to represent the objective state (maybe defclass?)
+(defun plot-rays-to-bfp (fn ray-arrays  &key (ne 1.33) (h .01))
   (declare (type (simple-array vec 2) ray-arrays)
 	   (type string fn))
   (with-asy fn
     (asy "import three;")
     (asy "size(1000,1000);")
-    (asy "currentprojection=orthographic(
-camera=(0,10,0),up=(0,0,1),target=~a,showtarget=true,center=false);" 
-	 (coord (aref ray-arrays 0 4)))
+    (multiple-value-bind (foc d slip obj bfp tl cam field alpha rbfp field-cam)
+	(important-positions-aberrated-microscope :ne ne :h h)
+      (asy "currentprojection=orthographic(
+camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
+	   (coord (v 0 100 bfp)) ;; move camera to bfp
+	   (coord (v 0 0 bfp))) 
+      (line (v field 0 d) (v 0 0 d)) ;; aberrated focus
+      ;(circle (v 0 0 foc) (* 1.52 (/ 164.5 63)) (v 0 1 0)) 
+      (arc (v 0 0 foc) (* 1.52 (/ 164.5 63)) ;; gauss sphere, FIXME parameters variable!
+	   :theta1 (- alpha) :normal (v 0 1 0))
+      (line (v rbfp 0 bfp) (v 0 0 bfp) ;; bfp
+      )
+      )
     (let ((rays (array-dimension ray-arrays 0)))
       (dotimes (i rays)
 	(macrolet ((r (point-index)
