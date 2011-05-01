@@ -303,6 +303,23 @@ camera=~a,up=(0,0,1),target=~a,showtarget=true,center=false);"
     (plot-rays-around-camera (format nil "~acam-~a.asy" dir th) p :h hh)
     (plot-rays-to-bfp (format nil "~abfp-~a.asy" dir th) p :h hh)))
 
+#+inl
+(latex ;; is there such a thing as cl-who for latex? but I don't want to write "text"
+ (documentclass (DIV19 twopage) scrartcl)
+ (usepackage graphicx)
+ (usepackage subfigure)
+ (env document
+      (section Inhalt und weiteres)
+      Das ist ein Test
+      (loop for h in '(1e0 10e0 30e0 50e0) collect
+	   (let ((th (truncate h)))
+	     `(env figure
+		   (centering)
+		   (subfigure (BFP.) ((includegraphics bfp-1)))
+		   (subfigure (Focus.) ((includegraphics ,(format nil "foc-~a" th))))
+		   (caption Water depth ,h)
+		   (label fig:graph))))))
+
 #+nil
 (progn
   (plot-h :h 1e0)
